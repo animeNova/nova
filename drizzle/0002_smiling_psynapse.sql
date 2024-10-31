@@ -1,0 +1,1 @@
+ALTER TABLE "creator" ALTER COLUMN "age" DROP NOT NULL;
