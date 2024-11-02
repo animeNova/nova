@@ -64,6 +64,13 @@
       "when": 1730387550434,
       "tag": "0008_sudden_lady_deathstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1730415969203,
+      "tag": "0009_lush_lifeguard",
+      "breakpoints": true
     }
   ]
 }

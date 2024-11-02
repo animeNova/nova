@@ -2,13 +2,13 @@
 
 import { DropdownMenu ,DropdownMenuContent,DropdownMenuItem,DropdownMenuLabel,DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {Copy, Edit, MoreHorizontal, Trash} from 'lucide-react'
+import {Copy, Edit, MoreHorizontal, PersonStanding, Trash} from 'lucide-react'
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { AlertModal } from '@/components/modal/alert-modal';
 import toast from 'react-hot-toast';
 import {Show} from './columns'
-import { deleteGenre } from "@/app/(admin)/actions/genre/genre.action";
+import { deleteshow } from "@/app/(admin)/actions/show/show.server";
 interface CellActionProps {
     data : Show;
 }
@@ -24,9 +24,9 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
     const onDelete = async () => {
         try {
           SetLoading(true)
-          await deleteGenre(data.id)
-          toast.success("Genre Deleted Succefully!");
-          router.push('/')
+          await deleteshow(data.id)
+          toast.success("Show Deleted Succefully!");
+          router.refresh()
         } catch (error) {
             toast.error("Something went Wrong!")
         } finally {
@@ -53,7 +53,13 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
                     Copy Id
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => {
-                    router.push(`/admin/shows/update/${data.id}`)
+                    router.push(`/admin/shows/${data.id}/characters`)
+                }}>  
+                <PersonStanding className="mr-2 h-4 w-4" />
+                 Characters
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {
+                    router.push(`/admin/shows/${data.id}/update`)
                 }}>
                     <Edit className="mr-2 h-4 w-4" />
                     Update

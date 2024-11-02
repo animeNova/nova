@@ -89,7 +89,7 @@ export const charachter = pgTable("charachter" , {
   image : text("image"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
-  showId : text("showId")
+  showId : text("showId").references(() => show.id , {onDelete : 'cascade'})
 })
 export const show = pgTable("show" , {
   id:uuid('id').defaultRandom().primaryKey(),

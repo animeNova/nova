@@ -26,7 +26,7 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
           SetLoading(true)
           await deleteCreator(data.id)
           toast.success("creator Deleted Succefully!");
-          router.push('/')
+          router.refresh()
         } catch (error) {
             toast.error("Something went Wrong!")
         } finally {

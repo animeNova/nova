@@ -2,7 +2,7 @@
 
 import { db } from "@/drizzle";
 import { QueryPorps } from "../../types";
-import { asc, count, desc, eq, sql } from "drizzle-orm";
+import { asc, count, desc, eq, like, sql } from "drizzle-orm";
 import { show ,showToGenre,showToCast, genre, cast} from "@/drizzle/db/schema";
 import { z } from "zod";
 import { showSchema } from "../../types/zod.types";
@@ -85,6 +85,14 @@ export const createshow = async (_data : z.infer<typeof showSchema>) => {
     success :"shows Created Successfuly!"
    }
 
+}
+
+export const searchShow = async (title : string) => {
+    const result = await db.select({
+        id:show.id ,
+        title : show.title
+    }).from(show).where(like(show.title , `%${title}%`))
+    return result;
 }
 
 export const getshow = async (id : string) => {

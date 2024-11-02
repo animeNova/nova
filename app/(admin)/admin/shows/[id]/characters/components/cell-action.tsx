@@ -7,16 +7,16 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { AlertModal } from '@/components/modal/alert-modal';
 import toast from 'react-hot-toast';
-import {Genre} from './columns'
+import {Character} from './columns'
 import { deleteGenre } from "@/app/(admin)/actions/genre/genre.action";
 interface CellActionProps {
-    data : Genre;
+    data : Character;
 }
 export const CellAction : React.FC<CellActionProps> = ({data}) => {
     const [open,SetOpen] = useState<boolean>(false)
     const [loading,SetLoading] = useState<boolean>(false)
     const router = useRouter()
-
+    const params = useParams<{id:string}>()
     const onCopy = () => {
         navigator.clipboard.writeText(data?.id)
         toast.success("Id Coppied!")
@@ -25,8 +25,8 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
         try {
           SetLoading(true)
           await deleteGenre(data.id)
-          toast.success("Genre Deleted Succefully!");
-          router.push('/')
+          toast.success("Character Deleted Succefully!");
+          router.refresh()
         } catch (error) {
             toast.error("Something went Wrong!")
         } finally {
@@ -53,7 +53,7 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
                     Copy Id
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => {
-                    router.push(`/admin/genres/update/${data.id}`)
+                    router.push(`/admin/shows/${params.id}/characters/update/${data.id}`)
                 }}>
                     <Edit className="mr-2 h-4 w-4" />
                     Update

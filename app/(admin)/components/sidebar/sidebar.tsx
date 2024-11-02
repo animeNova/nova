@@ -50,11 +50,6 @@ const items = [
     icon: Pen,
   },
   {
-    title: "Characters",
-    url: "/admin/characters",
-    icon: PersonStanding,
-  },
-  {
     title: "Reviews",
     url: "/admin/reviews",
     icon: Star,

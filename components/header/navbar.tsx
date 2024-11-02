@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { Search } from 'lucide-react'
+import { Search, Mic, Video, Bell, User } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { LoginDialog } from '../dialogs/LoginDaialog'
 import ThemeChanger from '../ui/ThemeChanger'
@@ -12,11 +12,37 @@ import { cn } from '@/lib/utils'
 import { useSession } from '@/app/lib/auth/client'
 import UserButton from '../userbtn/userButton'
 import { Button } from '../ui/button'
+import SearchBar from '../search/search-bar'
+
+
+const searchAPI = async (query: string) => {
+  await new Promise(resolve => setTimeout(resolve, 300))
+  
+  const suggestions = [
+    "react tutorial",
+    "nextjs 13",
+    "tailwind css",
+    "shadcn ui",
+    "typescript basics",
+    "web development 2023",
+    "javascript async await",
+    "react hooks explained",
+  ]
+  
+  return suggestions.filter(item => 
+    item.toLowerCase().includes(query.toLowerCase())
+  )
+}
+
 const Navbar = () => {
+
   const path = usePathname()
   const {data,isPending} = useSession();
   const router = useRouter()
-  
+
+
+
+
   return (
     <header>
     <nav className="fixed top-0 left-0 right-0 bg-background border-b  z-50">
@@ -30,16 +56,7 @@ const Navbar = () => {
               </svg>
             </div>
             <div className="hidden md:block ml-10">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-muted-foreground" />
-                </div>
-                <Input
-                  type="search"
-                  placeholder="Search..."
-                  className="block w-full pl-10 pr-3 py-2 border border-input rounded-md leading-5 bg-background placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm"
-                />
-              </div>
+            <SearchBar />
             </div>
           </div>
           <div className='hidden lg:block'>
@@ -68,14 +85,7 @@ const Navbar = () => {
       <div className="md:hidden">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="block w-full pl-10 pr-3 py-2 border border-input rounded-md leading-5 bg-background placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm"
-            />
+            <SearchBar /> 
           </div>
         </div>
       </div>
