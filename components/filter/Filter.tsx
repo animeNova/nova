@@ -9,18 +9,12 @@ import { cn } from "@/lib/utils"
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
+  SheetHeader, 
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ChevronDown, ChevronUp, Filter } from "lucide-react"
-import { useEffect, useState } from "react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
-import { Label } from "../ui/label"
 const categories = [
   { id: "electronics", name: "Electronics" },
   { id: "clothing", name: "Clothing" },

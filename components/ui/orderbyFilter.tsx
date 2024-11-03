@@ -1,4 +1,7 @@
-import React from 'react'
+"use client";
+import React, { useEffect } from 'react'
+import { useRouter, useSearchParams } from "next/navigation"
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,11 +17,22 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { ListFilter } from 'lucide-react'
-interface OrderbyFilterProps {
-    setOrderby : () => React.Dispatch<React.SetStateAction<string>>
-}
 
 const OrderbyFilter = () => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [orderBy, setOrderBy] = React.useState<string>(
+    searchParams.get("order") || ''
+  )
+  const onClick = (order :string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("order", order)
+    router.push(`?${params.toString()}`)
+  }
+  useEffect(() =>{
+    console.log(orderBy);
+    
+  },[])
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,13 +44,10 @@ const OrderbyFilter = () => {
                 OrderBy
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-                all
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onClick('desc')}>
                 latest
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onClick('asc')}>
                 oldest
             </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -56,21 +56,21 @@ const AnimePage = () => {
             {/* Functions */}
             <div className='flex justify-center md:justify-between items-center w-full flex-wrap gap-4'>
                 <div className='flex justify-start items-center gap-4 mx-3'>
-                    <Button variant={'dark'} className='p-4 md:text-lg '>
+                    <Button variant={'secondary'} className='p-4 md:text-lg '>
                         <Eye size={30} />
                         Watching
                         </Button>
-                    <Button variant={'dark'} className='p-4 md:text-lg'>
+                    <Button variant={'secondary'} className='p-4 md:text-lg'>
                         <Bookmark size={25}/>
                         To Watch
                         </Button>
-                    <Button variant={'dark'} className='p-4 md:text-lg'>
+                    <Button variant={'secondary'} className='p-4 md:text-lg'>
                         <Check size={25}/>
                         Watched
                         </Button>
                 </div>
                 <div>
-                    <Button variant={'dark'} className='p-4 text-lg'>
+                    <Button variant={'secondary'} className='p-4 text-lg'>
                         <Plus />
                         Add to Collection
                         </Button>
