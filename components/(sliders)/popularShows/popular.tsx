@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../ui/heade'
-import AnimeCard from '../cards/AnimeCard'
-import { Button } from '../ui/button'
+import Header from '../../ui/header'
+import AnimeCard from '../../cards/AnimeCard'
+import { Button } from '../../ui/button'
 
 const Popular = () => {
   return (

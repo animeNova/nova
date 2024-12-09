@@ -10,6 +10,9 @@ export async function getEnhancedRecommendations() {
     const user = await auth.api.getSession({
         headers : headers()
     })
+    if(!user?.session){
+      return null;
+    }
     const userId = user?.user.id;
     const interactions = await db
     .select()
@@ -21,7 +24,13 @@ export async function getEnhancedRecommendations() {
     const showIds = interactions.map((interaction) => interaction.showId);
 
     const recommendedShows = await db
-      .select()
+      .select({
+        id : show.id,
+        title :show.title,
+        image:show.image,
+        video :show.video ,
+        airing : show.airing
+      })
       .from(show)
       .where(inArray(show.id, showIds))
       .leftJoin(showToGenre, eq(show.id, showToGenre.showId))
@@ -42,7 +51,8 @@ export async function getEnhancedRecommendations() {
             id : true,
             title :true,
             image:true,
-            video :true
+            video :true ,
+            airing : true
         },
         with :{
             showGenres : {

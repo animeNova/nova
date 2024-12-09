@@ -9,17 +9,7 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
-import Header from '../ui/heade';
-import { show } from '@/drizzle/db/schema';
-interface AnimeCardsCarouselProps {
-    data : {
-        anime :typeof show;
-    };
-    title : string;
-
-}
-
-
+import Header from '../ui/header';
 const AnimeCardsCarousel = () => {
   return (
     <div className='space-y-3'>

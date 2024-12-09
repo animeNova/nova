@@ -3,9 +3,7 @@ import "./globals.css";
 import {Archivo,Poppins} from 'next/font/google'
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import  { Toaster } from 'react-hot-toast';
-import { auth } from "./lib/auth";
-import { headers } from "next/headers";
-import { getUserPrefrences } from "./(root)/actions/preferences/preferences";
+
 
 const archivo = Archivo({
   weight : ["400","500","700",'900'],

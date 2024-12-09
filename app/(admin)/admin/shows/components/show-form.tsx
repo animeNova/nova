@@ -39,17 +39,7 @@ import { UploadButton } from '@/lib/uploadthing';
 import VideoPreview from '@/components/ui/video-preview';
 import { searchStaff } from '@/app/(admin)/actions/staff/staff.action';
 import { MultiSelectV1 } from '@/components/ui/multi-select-v1-';
-import PinButton from '@/app/(admin)/components/pinShow/PinButton';
-const initialOptions = [
-  { value: 'react', label: 'React' },
-  { value: 'vue', label: 'Vue' },
-  { value: 'angular', label: 'Angular' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'nextjs', label: 'Next.js' },
-  { value: 'nuxt', label: 'Nuxt.js' },
-  { value: 'remix', label: 'Remix' },
-  { value: 'astro', label: 'Astro' },
-];
+
 interface ShowFormProps {
   initialData?: any| null ,
   genres : {
@@ -211,7 +201,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
             <Trash className="h-4 w-4" />
           </Button>
         )}
-        <PinButton showId={params.id} />
+        
         </div>
 
 
