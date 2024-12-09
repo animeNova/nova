@@ -1,9 +1,10 @@
 
 import React from 'react'
-import UsersCard from '../components/users/UsersCard'
+import UsersCard from '../components/stats/users/UsersCard'
 import { useSession } from '@/app/lib/auth/client'
 import { auth } from '@/app/lib/auth'
 import { headers } from 'next/headers'
+import ShowsCard from '../components/stats/shows/ShowsCard'
 
 const page =async () => {
   const data = await auth.api.getSession({
@@ -16,9 +17,11 @@ const page =async () => {
             Hi Welcome back, {data?.user.name} 👋 
           </h2>
         </div>
-        <div className="">
+        <div className="flex justify-start items-center gap-3">
       <UsersCard />
+      <ShowsCard />
     </div>
+    
     </div>
 
   )

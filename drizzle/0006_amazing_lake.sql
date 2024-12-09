@@ -1,1 +1,0 @@
-ALTER TABLE "show" RENAME COLUMN "createdAt" TO "created_at";

@@ -1,1 +1,0 @@
-ALTER TABLE "show" ALTER COLUMN "airing" SET DATA TYPE date;

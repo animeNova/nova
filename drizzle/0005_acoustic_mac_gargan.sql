@@ -1,1 +1,0 @@
-ALTER TABLE "show" ADD COLUMN "type" text NOT NULL;

@@ -1,12 +1,14 @@
 "use client";
-import React from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from '../ui/theme-provider';
 import Navbar from "@/components/header/navbar";
-
+import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
 const Provider = ({
     children
 } : {children:React.ReactNode}) => {
+  const [queryClinet] = useState(() => new QueryClient())
   return (
+    <QueryClientProvider client={queryClinet}>
     <ThemeProvider
     attribute="class"
     defaultTheme="system"
@@ -19,6 +21,7 @@ const Provider = ({
     </main>
     </div>
     </ThemeProvider>
+    </QueryClientProvider>
   )
 }
 

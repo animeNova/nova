@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings,User,Languages,Tags,SquareUser,PersonStanding ,Star,Clapperboard,Library,SquareScissors,Pen} from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings,User,Languages,Tags,SquareUser,PersonStanding ,Star,Clapperboard,Library,SquareScissors,Pen, ChartNoAxesCombined} from "lucide-react"
 
 import {
   Sidebar,
@@ -16,8 +16,13 @@ import {
 const items = [
   {
     title: "Home",
-    url: "/admin",
+    url: "/",
     icon: Home,
+  },
+  {
+    title: "Statics",
+    url: "/admin",
+    icon: ChartNoAxesCombined,
   },
   {
     title: "Users",

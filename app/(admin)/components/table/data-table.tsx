@@ -122,7 +122,7 @@ export function DataTable<TData, TValue>({
               </Button>
         ) }
     {
-      !hasNextPage && (
+      hasNextPage && (
         <Button
         variant="outline"
         size="sm"

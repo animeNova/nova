@@ -1,9 +1,9 @@
 import React from 'react'
-import { GenerForm } from '../components/language-form'
+import { LanguageForm } from '../components/language-form'
 
 const page = () => {
   return (
-    <GenerForm  />
+    <LanguageForm  />
   )
 }
 

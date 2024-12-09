@@ -59,11 +59,12 @@ export const createCharacter = async (_data : z.infer<typeof characterSchema>) =
     if(error){
         return {error : error}
     }
-    const {name,image,showId} = data;
+    const {name,image,showId,cast} = data;
     await db.insert(Character).values({
         name : name ,
         image : image,
         showId:showId,
+        castId: cast.value
     }) 
     revalidatePath('/admin/Characters')
     return {
@@ -78,11 +79,12 @@ export const updateCharacter = async (id : string , _data : z.infer<typeof chara
     if(error){
      return {error : error}
     }
-    const {image,name,showId} = data;
+    const {image,name,showId,cast} = data;
     await db.update(Character).set({
         name : name ,
         image : image ,
-        showId : showId
+        showId : showId,
+        castId: cast.value
     }).where(eq(Character.id,id))
     revalidatePath(`/admin/shows/${showId}/characters`)
     return {

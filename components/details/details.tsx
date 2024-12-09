@@ -6,7 +6,7 @@ interface DetailsProps {
 
 const Details : React.FC<DetailsProps> = ({name = 'Type',value = 'TV'}) => {
   return (
-    <div className='flex justify-start items-center gap-10'>
+    <div className='flex gap-5'>
       <p className='text-white/70 text-xl'>{name}</p>
       <p className='text-xl'>{value}</p>
     </div>

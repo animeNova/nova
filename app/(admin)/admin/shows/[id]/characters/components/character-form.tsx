@@ -13,9 +13,9 @@ import { Input } from '@/components/ui/input';
 
 import { Separator } from '@/components/ui/separator';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, ChevronsUpDown, ImagePlus, Trash, Trash2, X } from 'lucide-react';
+import { ImagePlus, Trash, Trash2, X } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { ChangeEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { AlertModal } from '@/components/modal/alert-modal';
@@ -24,10 +24,9 @@ import { characterSchema } from '@/app/(admin)/types/zod.types';
 import { createCharacter, deleteCharacter, updateCharacter } from '@/app/(admin)/actions/characters/characters.action';
 import toast from 'react-hot-toast';
 import { CldUploadWidget } from 'next-cloudinary';
-import { cn } from '@/lib/utils';
-import { searchShow } from '@/app/(admin)/actions/show/show.server';
-import { SearchSelect } from '@/components/ui/search-select';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,SelectLabel } from '@/components/ui/select';
+import { SearchableSelect,Option } from '@/components/ui/searchAbleSelect';
+import { debounce } from '@/lib/utils';
+import { searchStaff } from '@/app/(admin)/actions/staff/staff.action';
 
 interface CharacterFormProps {
   initialData?: any| null 
@@ -40,6 +39,7 @@ export const CharacterForm: React.FC<CharacterFormProps> = ({
   const params = useParams<{id : string,characterId:string}>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState<Option[]>();
   const [open,setOpen]=  useState<boolean>(false)
   const title = initialData ? 'Edit character' : 'Create character';
   const toastMessage = initialData ? 'Character updated Succefully!' : 'Character Created Succefully!';
@@ -51,7 +51,11 @@ export const CharacterForm: React.FC<CharacterFormProps> = ({
     : {
         name : "" ,
         image : "",
-        showId : params.id
+        showId : params.id,
+        cast:{
+          label : "" ,
+          value : ""
+        }
       };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -104,7 +108,16 @@ export const CharacterForm: React.FC<CharacterFormProps> = ({
   }, [form]);
   const imageUrl = form.watch("image");
 
- 
+    const handleSearch = debounce(async (query: string) => {
+      setLoading(true);
+      try {
+        const results = await searchStaff(query);
+        setOptions(results);
+      } finally {
+        setLoading(false);
+      }
+    }, 300);
+
   return (
     <div className='mx-4 space-y-3'>
     <AlertModal isOpen={open} onClose={() => setOpen(false)} onConfirm={onDelete} loading={loading} />
@@ -127,6 +140,7 @@ export const CharacterForm: React.FC<CharacterFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-8"
         >
+        
             <FormField
           control={form.control}
           name="name"
@@ -140,6 +154,29 @@ export const CharacterForm: React.FC<CharacterFormProps> = ({
             </FormItem>
           )}
         />
+            <FormField
+          control={form.control}
+          name="cast"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cast</FormLabel>
+              <FormControl>
+              <SearchableSelect
+              options={options}
+              value={field.value}
+              onChange={field.onChange}
+              onSearch={handleSearch}
+              loading={loading}
+              placeholder="Search cast..."
+              className="w-full"
+            />
+
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
          <FormField
               control={form.control}
               name="image"

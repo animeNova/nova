@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1729784572328,
-      "tag": "0000_fast_nomad",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1729788414213,
-      "tag": "0001_elite_zemo",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1730117269014,
-      "tag": "0002_smiling_psynapse",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1730144966785,
-      "tag": "0003_regular_wendigo",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1730225700976,
-      "tag": "0004_lush_donald_blake",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1730227721070,
-      "tag": "0005_acoustic_mac_gargan",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1730228107068,
-      "tag": "0006_amazing_lake",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1730228232413,
-      "tag": "0007_charming_titanium_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1730387550434,
-      "tag": "0008_sudden_lady_deathstrike",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1730415969203,
-      "tag": "0009_lush_lifeguard",
+      "when": 1733663677290,
+      "tag": "0000_pale_sersi",
       "breakpoints": true
     }
   ]

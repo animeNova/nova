@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Title from '../../components/title/Title';
 import Link from 'next/link';
 const page =async ({ searchParams }: { searchParams: { page?: string} }) => {
+ 
     const page = parseInt(searchParams.page || "1"); 
     const {result,currentpage,hasNextPage,totalShows,totalPages} =await getshows({
         page : page

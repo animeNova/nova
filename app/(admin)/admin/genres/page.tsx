@@ -10,7 +10,8 @@ const page =async ({ searchParams }: { searchParams: { page?: string} }) => {
     const page = parseInt(searchParams.page || "1"); 
     const {result,currentpage,hasNextPage,totalGenres,totalPages} =await getGenres({
         page : page
-    })     
+    })  
+       
   return (
     <div className='space-y-4'>
         <div className='flex justify-between  items-center'> 

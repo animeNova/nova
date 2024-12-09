@@ -2,7 +2,7 @@
 
 import { db } from "@/drizzle";
 import { QueryPorps } from "../../types";
-import { asc, count, desc, eq } from "drizzle-orm";
+import { asc, count, desc, eq, like } from "drizzle-orm";
 import { cast } from "@/drizzle/db/schema";
 import { z } from "zod";
 import { staffSchema } from "../../types/zod.types";
@@ -44,6 +44,14 @@ export const getAllStaffs = async () => {
     return {
         result,
     }
+}
+
+export const searchStaff = async (name : string) => {
+    const result = await db.select({
+        value : cast.id ,
+        label : cast.name
+    }).from(cast).where(like(cast.name,`%${name}%`));
+    return result;
 }
 
 export const getStaff = async (id:string) => {

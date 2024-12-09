@@ -60,6 +60,7 @@ export const createGenre = async (_data : z.infer<typeof genreSchema>) => {
 export const getGenre = async (id : string) => {
     const result = await db.query.genre.findFirst({
        where : (_genre , {eq}) => eq(_genre.id,id),
+       
     })
     if(!result){
         return {error : "Genre was Not Found!"}

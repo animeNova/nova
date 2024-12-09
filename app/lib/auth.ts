@@ -10,13 +10,19 @@ export const auth = betterAuth({
     }),
     socialProviders :{
         github :{
-            clientId:"Ov23lijK0pq41wRBK4Hv",
-            clientSecret:"aa1e2280aa4f267f6641099676cc685a03bcc13e",
+            clientId:process.env.GITHUB_CLIENT_ID!,
+            clientSecret:process.env.GITHUB_CLIENT_SECRET!,
         }
     } ,
     plugins :[
         admin({
             defaultRole :false
         })
-    ]
+    ] ,
+    trustedOrigins: [
+        process.env.NEXT_PUBLIC_URL!
+    ],
+    advanced :{
+        useSecureCookies :false
+    }
 });

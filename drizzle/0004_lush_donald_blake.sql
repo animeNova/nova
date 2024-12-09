@@ -1,1 +1,0 @@
-ALTER TABLE "show" ADD COLUMN "airing" timestamp NOT NULL;

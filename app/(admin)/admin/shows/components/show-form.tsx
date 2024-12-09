@@ -11,9 +11,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, ImagePlus, Trash, Trash2, X } from 'lucide-react';
+import { FileDiff, ImagePlus, Trash, Trash2, X } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { AlertModal } from '@/components/modal/alert-modal';
@@ -23,14 +23,7 @@ import { createshow,updateshow,deleteshow} from '@/app/(admin)/actions/show/show
 import toast from 'react-hot-toast';
 import { Textarea } from "@/components/ui/textarea"
 import { MultiSelect } from "@/components/ui/multi-select";
-import { Calendar } from "@/components/ui/calendar"
-import { format } from "date-fns"
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { TagsInput } from "react-tag-input-component";
 import {
   Select,
   SelectContent,
@@ -38,21 +31,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { cn } from '@/lib/utils';
-import { ImageUpload } from '@/components/ui/imageUploadBtn';
 import { CldUploadWidget } from 'next-cloudinary';
-import { language } from '@/drizzle/db/schema';
-
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { DateTimePicker } from '@/components/ui/datetime-picker';
+import ImageUpload from '@/components/ui/uploadIamges';
+import { UploadButton } from '@/lib/uploadthing';
+import VideoPreview from '@/components/ui/video-preview';
+import { searchStaff } from '@/app/(admin)/actions/staff/staff.action';
+import { MultiSelectV1 } from '@/components/ui/multi-select-v1-';
+import PinButton from '@/app/(admin)/components/pinShow/PinButton';
+const initialOptions = [
+  { value: 'react', label: 'React' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'angular', label: 'Angular' },
+  { value: 'svelte', label: 'Svelte' },
+  { value: 'nextjs', label: 'Next.js' },
+  { value: 'nuxt', label: 'Nuxt.js' },
+  { value: 'remix', label: 'Remix' },
+  { value: 'astro', label: 'Astro' },
+];
 interface ShowFormProps {
   initialData?: any| null ,
   genres : {
     id : string;
     title : string;
   }[];
-  casts : {
-    id : string;
-    name:string;
-  }[];
+
   studios : {
     id : string;
     name : string;
@@ -72,7 +76,6 @@ interface ShowFormProps {
 export const ShowForm: React.FC<ShowFormProps> = ({
   initialData , 
   genres,
-  casts,
   studios,
   creators,
   languages
@@ -80,6 +83,8 @@ export const ShowForm: React.FC<ShowFormProps> = ({
   const params = useParams<{id : string}>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState<{label : string,value : string}[]>([]);
+
   const [open,setOpen]=  useState<boolean>(false)
   const title = initialData ? 'Edit show' : 'Create show';
   const toastMessage = initialData ? 'Show updated Succefully!' : 'Show Created Succefully!';
@@ -97,12 +102,18 @@ export const ShowForm: React.FC<ShowFormProps> = ({
         type :"" ,
         rating : 0, 
         image :"" ,
+        backgroundImage:"",
         languageId: "" ,
         creatorId:"",
         studioId:"",
         genreIds:[],
+        images:[],
         staffs:[] ,
-        airing : new Date()
+        airing :new Date(),
+        trailer :"",
+        video : "" ,
+        videoKey : "",
+        keyWord : []
       };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -154,7 +165,31 @@ export const ShowForm: React.FC<ShowFormProps> = ({
     form.setValue("image", "");
   }, [form]);
   const imageUrl = form.watch("image");
+  const handleUploadBgSuccess = useCallback(
+    (result: any) => {
+      form.setValue("backgroundImage", result.info.secure_url);
+    },
+    [form]
+  );
 
+  const handleRemoveBgImage = useCallback(() => {
+    form.setValue("backgroundImage", "");
+  }, [form]);
+  const bgimageUrl = form.watch("backgroundImage");
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await searchStaff('ah');
+      console.log(result);
+      
+      return result;
+    }
+    fetch()
+  },[])
+  const handleSearch = async (query : string) => {
+    const result = await searchStaff(query);
+    setOptions(result);
+  }
   return (
     <div className='mx-4 space-y-3 '>
       <AlertModal
@@ -165,6 +200,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
       />
       <div className="flex items-center justify-between">
         <Title title={title} />
+        <div className='flex justify-center items-center gap-2'>
         {initialData && (
           <Button
             disabled={loading}
@@ -175,14 +211,19 @@ export const ShowForm: React.FC<ShowFormProps> = ({
             <Trash className="h-4 w-4" />
           </Button>
         )}
+        <PinButton showId={params.id} />
+        </div>
+
+
       </div>
       <Separator />
+      <ScrollArea>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-8"
+          className="w-full space-y-8 mb-7"
         >
-          <div className='flex justify-start items-center gap-8 w-full flex-wrap'>
+          <div className='flex justify-start items-center gap-8 w-full flex-wrap py-8'>
           <FormField
           control={form.control}
           name="title"
@@ -206,6 +247,20 @@ export const ShowForm: React.FC<ShowFormProps> = ({
               <FormLabel>relative Title</FormLabel>
               <FormControl>
                 <Input placeholder="relativeTitle" {...field} className='w-[150px] md:w-auto' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+            />
+          <FormField
+          control={form.control}
+          name="trailer"
+          
+          render={({ field }) => (
+            <FormItem >
+              <FormLabel>trailer</FormLabel>
+              <FormControl>
+                <Input placeholder="Trailer" {...field} className='w-[150px] md:w-auto' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -363,53 +418,49 @@ export const ShowForm: React.FC<ShowFormProps> = ({
             <FormItem >
               <FormLabel>rating</FormLabel>
               <FormControl>
-                <Input placeholder="rating" {...field} type='number' min={1} max={10}  className='w-[130px] md:w-auto' />
+                <Input placeholder="rating" {...field} className='w-[130px] md:w-auto' />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
           />
-             <FormField
-          control={form.control}
-          name="airing"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Aired</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value as any ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value as any}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+         <FormField
+              control={form.control}
+              name="airing"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full">
+                  <FormLabel>Date</FormLabel>
+                  <DateTimePicker hideTime onChange={field.onChange} value={new Date(field.value)}   />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+          <FormField
+                control={form.control}
+                name="keyWord"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tags</FormLabel>
+                    <FormControl>
+                      <TagsInput 
+                        value={field.value}
+                        onChange={field.onChange}
+                        name="fruits"
+                        placeHolder="enter tags"
+                        classNames={{
+                          input : "bg-transparent",
+                          tag : "bg-foreground text-background"
+                        }}
+                      
+                      />
+                    </FormControl>
+                 
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
           </div>
           <div>
           <FormField
@@ -435,14 +486,14 @@ export const ShowForm: React.FC<ShowFormProps> = ({
             <FormItem>
                 <FormLabel>Cast</FormLabel>
                 <FormControl>
-                  <MultiSelect
-                    options={casts.map((cast) => ({
-                      value : cast.id ,
-                      label :cast.name
-                    }))}
-                    onValueChange={field.onChange} 
-                    defaultValue={form.watch('staffs')}
-                  />
+                <MultiSelect
+                            options={options}
+                            defaultValue={field.value}
+                            onChange={field.onChange}
+                            onSearch={handleSearch}
+                            placeholder="Search frameworks..."
+                            className="w-full"
+                      />
                 </FormControl>
            
               <FormMessage />
@@ -461,13 +512,14 @@ export const ShowForm: React.FC<ShowFormProps> = ({
               <FormItem>
                 <FormLabel>Genres</FormLabel>
                 <FormControl>
-                  <MultiSelect
+                  <MultiSelectV1
                     options={genres.map((genre) => ({
                       value : genre.id ,
                       label :genre.title
                     }))}
-                    onValueChange={field.onChange} 
-                    defaultValue={form.watch('genreIds')}
+                    onSearch={() => {}}
+                    onChange={field.onChange}
+                    selectedValues={form.watch('genreIds')}
                   />
                 </FormControl>
            
@@ -491,7 +543,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
                           <img
                             src={imageUrl}
                             alt="Preview"
-                            className="h-32 w-32 object-cover"
+                            className="h-24 w-24 object-cover"
                           />
                           <Button
                             type="button"
@@ -512,7 +564,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
                             <Button
                               type="button"
                               variant="outline"
-                              className="w-full h-[150px]"
+                              className="w-full h-[50px]"
                               onClick={() => open()}
                             >
                               <ImagePlus className="mr-2 h-4 w-4" />
@@ -529,11 +581,122 @@ export const ShowForm: React.FC<ShowFormProps> = ({
               )}
             /> 
           </div>
-          <Button disabled={loading} className="ml-auto disabled:bg-primary/80" type="submit">
+          <div>
+          <FormField
+              control={form.control}
+              name="backgroundImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Background Image</FormLabel>
+                  <FormControl>
+                    <div className="space-y-4">
+                      {bgimageUrl ? (
+                        <div className="relative w-full overflow-hidden rounded-lg border">
+                          <img
+                            src={bgimageUrl}
+                            alt="Preview"
+                            className="h-24 w-24 object-cover"
+                          />
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            className="absolute right-2 top-2"
+                            onClick={handleRemoveBgImage}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <CldUploadWidget
+                          uploadPreset="z1w6dtxd"
+                          onSuccess={handleUploadBgSuccess}
+                        >
+                          {({ open }) => (
+                            <Button
+                              type="button"
+                              variant="outline"
+                              className="w-full h-[90px]"
+                              onClick={() => open()}
+                            >
+                              <ImagePlus className="mr-2 h-4 w-4" />
+                              Upload Background Image
+                            </Button>
+                          )}
+                        </CldUploadWidget>
+                      )}
+                      <input type="hidden" {...field} />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> 
+          </div>
+          <div>
+          <FormField
+      control={form.control}
+      name={'images'}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Images</FormLabel>
+          <FormControl>
+            <ImageUpload
+              maxFiles={5}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+          </div>
+          <div>
+          <FormField
+      control={form.control}
+      name={'video'}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Video</FormLabel>
+          {field.value ? (
+            <VideoPreview url={field.value} id={form.getValues('videoKey')} />
+          ) : (
+            <>
+                   <FormControl>
+          <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          form.setValue('video',res[0].url)
+          form.setValue('videoKey',res[0].key)
+          toast.success('Video is Uploaded!')
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          toast.error(`ERROR! ${error.message}`)
+        }}
+        onUploadBegin={() => {
+          toast.success('Video is being Uploading!')
+        }}
+        className='border'
+      />
+          </FormControl>
+          <FormMessage />
+            </>
+          )}
+   
+        </FormItem>
+      )}
+    />
+
+          </div>
+          <Button disabled={loading} className="ml-auto disabled:bg-primary/80 " type="submit">
             {action}
           </Button>
         </form>
       </Form>
+      </ScrollArea>
     </div>
   );
 };

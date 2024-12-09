@@ -36,7 +36,7 @@ export const showSchema = z.object({
     }).max(255),
     description :  z.string().min(2,{
         message : "description is required"
-    }).max(500) ,
+    }) ,
     status :z.string().min(1,{
         message : "status is required"
     }) ,
@@ -46,13 +46,19 @@ export const showSchema = z.object({
     type : z.enum(["TV","MOVIE"], {
         message :"type is Required"
     }) ,
-    rating : z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-        message: "Expected number, received a string"
-      }),
+    rating : z.preprocess(
+        Number,
+        z.number()
+      ),
     image : z.string().min(1,{
         message : "image is required"
 
     }),
+    backgroundImage : z.string().min(1,{
+        message : "backgroundImage is required"
+
+    }),
+    images : z.array(z.string()),
     languageId : z.string().min(1,{
         message :"language is required"
     }) ,
@@ -67,11 +73,24 @@ export const showSchema = z.object({
     genreIds : z.array(z.string(),{
         message:"genres are required"
     }).min(1),
-    staffs : z.array(z.string(),{
+    staffs : z.array(z.object({
+        label : z.string() ,
+        value : z.string()
+    }),{
         message:"casts are required"
     }).min(1)   ,
-    airing : z.date({
-        message:"year are required"
+    airing :z.date({
+        message :"airing is required!"
+    }),
+    trailer :z.string().nullable().transform((val) => val || ''),
+    video : z.string({
+        message :"Video is Required!"
+    }),
+    videoKey : z.string({
+        message :"videoKey is required!"
+    }) ,
+    keyWord : z.array(z.string()).min(1 , {
+        message : "key Word are Required"
     })
 })
 
@@ -85,5 +104,11 @@ export const characterSchema = z.object({
     }) ,
     showId : z.string().min(1,{
         message :"ShowId is Required"
+    }),
+    cast : z.object({
+        value : z.string(),
+        label : z.string()
+    }, {
+        message : "Cast is Required!"
     })
 })

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { AlertModal } from '@/components/modal/alert-modal';
 import toast from 'react-hot-toast';
 import {Character} from './columns'
-import { deleteGenre } from "@/app/(admin)/actions/genre/genre.action";
+import { deleteCharacter } from "@/app/(admin)/actions/characters/characters.action";
 interface CellActionProps {
     data : Character;
 }
@@ -24,7 +24,7 @@ export const CellAction : React.FC<CellActionProps> = ({data}) => {
     const onDelete = async () => {
         try {
           SetLoading(true)
-          await deleteGenre(data.id)
+          await deleteCharacter(data.id)
           toast.success("Character Deleted Succefully!");
           router.refresh()
         } catch (error) {

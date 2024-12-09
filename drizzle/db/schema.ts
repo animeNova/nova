@@ -1,8 +1,10 @@
-import { relations } from "drizzle-orm";
-import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, uuid, date } from "drizzle-orm/pg-core";
-			
+import { relations, sql } from "drizzle-orm";
+import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, date,decimal,doublePrecision,PgArray, uuid, varchar } from "drizzle-orm/pg-core";
+import { nanoid } from "nanoid";
+
 export const user = pgTable("user", {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: text('id').default(nanoid())
+  .primaryKey(),
   name: text('name').notNull(),
   password: text('password'),
 email: text('email').notNull().unique(),
@@ -17,7 +19,8 @@ updatedAt: timestamp('updatedAt').defaultNow().notNull()
 });
 
 export const session = pgTable("session", {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: text('id').default(nanoid())
+  .primaryKey(),
   expiresAt: timestamp('expiresAt').notNull(),
 ipAddress: text('ipAddress'),
 userAgent: text('userAgent'),
@@ -25,7 +28,8 @@ userId: text('userId').notNull().references(()=> user.id)
 });
 
 export const account = pgTable("account", {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id: text('id').default(nanoid())
+  .primaryKey(),
   accountId: text('accountId').notNull(),
 providerId: text('providerId').notNull(),
 userId: text('userId').notNull().references(()=> user.id),
@@ -37,27 +41,31 @@ password: text('password')
 });
 
 export const verification = pgTable("verification", {
-  id: uuid('id').defaultRandom().primaryKey(),
+  id:  text('id').default(nanoid())
+  .primaryKey(),
   identifier: text('identifier').notNull(),
 value: text('value').notNull(),
 expiresAt: timestamp('expiresAt').notNull()
 });
 export const genre = pgTable("genre" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   title : text("title").notNull().unique(),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 
 export const language = pgTable("language" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid("id").defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   title : text("title").notNull().unique(),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 
 export const studio = pgTable("studio" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   title : text("title").notNull().unique(),
   image : text("image"),
   imageId : text("imageId"),
@@ -65,7 +73,8 @@ export const studio = pgTable("studio" , {
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 export const creator = pgTable("creator" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   name : text("name").notNull().unique(),
   age : integer("age"),
   image : text("image"),
@@ -74,7 +83,8 @@ export const creator = pgTable("creator" , {
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 export const cast = pgTable("cast" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   name : text("name").notNull().unique(),
   age : integer("age").notNull(),
   job : text("job").notNull(),
@@ -84,39 +94,47 @@ export const cast = pgTable("cast" , {
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
 export const charachter = pgTable("charachter" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   name : text("name").notNull().unique(),
   image : text("image"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
-  showId : text("showId").references(() => show.id , {onDelete : 'cascade'})
+  showId : uuid("showId").references(() => show.id , {onDelete : 'cascade'}),
+  castId : uuid("castId").references(() => cast.id , {onDelete : 'cascade'}),
 })
+
 export const show = pgTable("show" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   title : text("title").notNull().unique(),
+  tags : text("tags").array() ,
   relativeTitle : text("relativeTitle").notNull(),
   description : text("description").notNull(),
   status : text("status").notNull(),
   season : text("season").notNull(),
   type : text("type",{enum : ["TV" , "MOVIE"]}).notNull(),
   trailer : text("trailer"),
-  rating : integer("rating").notNull(),
-  image : text("image"),
-  imageId : text("imageId"),
-  backgroundImage : text("backgroundImage"),
-  backgroundImageId : text("backgroundImageId"),
+  rating : doublePrecision("rating").notNull(),
+  image : text("image").notNull(),
+  backgroundImage : text("backgroundImage").notNull(),
+  images : text("images").array().default(sql`'{}'::text[]`) ,
   embedding : vector("embedding",{
     dimensions : 1024
   }),
   created_at: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
-  languageId : text("languageId"),
-  creatorId : text("creatorId"),
-  studioId : text("studioId"),
-  airing : date('airing').notNull()
+  languageId : uuid("languageId"),
+  creatorId : uuid("creatorId"),
+  studioId : uuid("studioId"),
+  airing : date('airing').notNull() ,
+  video : text("video").default('').notNull() ,
+  videoKey : text("videoKey").default('').notNull() ,
+  
 })
 export const collection = pgTable("collection" , {
-  id:uuid('id').defaultRandom().primaryKey(),
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
   title : text("title").notNull(),
   description : text("description"),
   private : boolean("private").default(false),
@@ -126,20 +144,13 @@ export const collection = pgTable("collection" , {
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
   userId : text("userId").notNull()
 })
+
+
+
 export const userRelations = relations(user , ({many}) => ({
   collections : many(collection)
 }))
-export const showRelations = relations(show,({one,many}) => ({
-  lang : one(language, {
-    fields : [show.languageId],
-    references : [language.id]
-  }) ,
-  genres : many(showToGenre),
-  cast : many(showToCast) ,
-  charachter :many(charachter),
-  creator : one(creator) ,
-  studio : one(studio)
-}))
+
 export const collectionRelations = relations(collection,({one,many}) =>({
   user : one(user ,{
     fields : [collection.userId],
@@ -150,7 +161,11 @@ export const languageRelations = relations(language , ({many}) => ({
   shows : many(show)
 }))
 export const castRelations = relations(cast , ({many}) => ({
-  shows :many(showToCast)
+  showCasts: many(showToCast),
+  charachter :many(charachter),
+}))
+export const genreRelations = relations(genre , ({many}) => ({
+  showGenres: many(showToGenre),
 }))
 export const creatorRelations = relations(creator,({many}) => ({
   shows : many(show)
@@ -162,48 +177,87 @@ export const charachterRelations = relations(charachter , ({one}) => ({
   showId:one(show, {
     fields : [charachter.showId],
     references:[show.id]
-  })
-}))
-export const genreRelations = relations(genre,({many}) => ({
-  shows : many(showToGenre)
-}))
-export const showToGenre = pgTable(
-  'show_to_genre',
-  {
-    showId: text('show_id')
-      .notNull()
-      .references(() => show.id),
-    genreId: text('genre_id')
-      .notNull()
-      .references(() => genre.id),
-  },
-  (t) => ({
-    pk: primaryKey({ columns: [t.showId, t.genreId] }),
   }),
+  castId:one(cast, {
+    fields : [charachter.castId],
+    references:[cast.id]
+  }),
+}))
+
+export const showToGenre = pgTable(
+  "show_genre",
+  {
+    showId: uuid("show_id").notNull(),
+    genreId: uuid("genre_id").notNull(),
+  },
+  (table) => ({
+    compositeKey: primaryKey(table.showId, table.genreId), // Composite primary key
+  })
 );
 export const showToCast = pgTable(
-  'show_to_cast',
+  "show_casts",
   {
-    showId: text('show_id')
-      .notNull()
-      .references(() => show.id),
-    castId: text('cast_id')
-      .notNull()
-      .references(() => cast.id),
+    showId: uuid("show_id").notNull(),
+    castId: uuid("cast_id").notNull(),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.showId, t.castId] }),
-  }),
+  (table) => ({
+    compositeKey: primaryKey({columns : [table.showId, table.castId]}), // Composite primary key
+  })
 );
+
 export const showToCollection = pgTable('show_to_collection',  {
-  showId: text('show_id')
+  showId: uuid('show_id')
     .notNull()
-    .references(() => show.id),
-  collectionId: text('collection_id')
+    .references(() => show.id , {onDelete :"cascade"}),
+  collectionId: uuid('collection_id')
     .notNull()
-    .references(() => collection.id),
+    .references(() => collection.id , {onDelete :"cascade"}),
 },
 (t) => ({
   pk: primaryKey({ columns: [t.showId, t.collectionId] }),
 })
 )
+
+
+export const showRelations = relations(show,({one,many}) => ({
+  lang : one(language, {
+    fields : [show.languageId],
+    references : [language.id]
+  }) ,
+  charachter :many(charachter),
+  creator : one(creator, {
+    fields : [show.creatorId],
+    references : [creator.id]
+  }) ,
+  studio : one(studio, {
+    fields : [show.studioId],
+    references : [studio.id]
+  }),
+  showCasts: many(showToCast),
+  showGenres: many(showToGenre)
+}))
+
+export const showCastRelations = relations(showToCast, ({ one }) => ({
+  show: one(show, { fields: [showToCast.showId], references: [show.id] }),
+  cast: one(cast, { fields: [showToCast.castId], references: [cast.id] }),
+}));
+export const showGenreRelations = relations(showToGenre, ({ one }) => ({
+  show: one(show, { fields: [showToGenre.showId], references: [show.id] }),
+  genre: one(genre, { fields: [showToGenre.genreId], references: [genre.id] }),
+}));
+
+export const userPreferences = pgTable("user_preferences", {
+  userId: text("user_id").references(() => user.id, { onDelete: "cascade" }),
+  genreId: uuid("genre_id").references(() => genre.id, { onDelete: "cascade" }),
+}, (table) => ({
+  pk: primaryKey({columns : [table.userId,table.genreId]}),
+}));
+
+export const userInteractions = pgTable("user_interactions", {
+  userId: text("user_id").notNull(),
+  showId: uuid("show_id").notNull().references(() => show.id),
+  interactionType: text("interaction_type").notNull(), // e.g., 'like', 'view'
+  interactionWeight: integer("interaction_weight").default(1), // Weight for importance
+}, table => ({
+  pk: primaryKey({columns : [table.userId, table.showId]}),
+}));
