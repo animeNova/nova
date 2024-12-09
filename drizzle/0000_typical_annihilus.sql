@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"id" text PRIMARY KEY DEFAULT 'uwl8Gcn1VA724HvZ5sSw3' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'TE6KgKQqWmruupSucFysl' NOT NULL,
 	"accountId" text NOT NULL,
 	"providerId" text NOT NULL,
 	"userId" text NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "account" (
 CREATE TABLE IF NOT EXISTS "cast" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
-	"age" integer NOT NULL,
+	"age" date,
 	"job" text NOT NULL,
 	"image" text,
 	"imageId" text,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "collection" (
 CREATE TABLE IF NOT EXISTS "creator" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
-	"age" integer,
+	"birth" date,
 	"image" text,
 	"imageId" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS "language" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
-	"id" text PRIMARY KEY DEFAULT 'UsSJheFtY8UPhG4oP0W9c' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'L1hFDm7J8BkwTEHGB03Gp' NOT NULL,
 	"expiresAt" timestamp NOT NULL,
 	"ipAddress" text,
 	"userAgent" text,
@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS "session" (
 CREATE TABLE IF NOT EXISTS "show" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" text NOT NULL,
+	"secondTilte" text,
 	"tags" text[],
 	"relativeTitle" text NOT NULL,
 	"description" text NOT NULL,
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS "studio" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY DEFAULT 'erPlZSe6Cp1BL36-W24eN' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'GNRqsNlSSBlJOPHqAw-oN' NOT NULL,
 	"name" text NOT NULL,
 	"password" text,
 	"email" text NOT NULL,
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS "user_preferences" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verification" (
-	"id" text PRIMARY KEY DEFAULT 'yGe4jAVRQhfqWv0blP2hV' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT '01MG1Nqoy8gx08iwk-Z0C' NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
 	"expiresAt" timestamp NOT NULL

@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, date,decimal,doublePrecision,PgArray, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, date,decimal,doublePrecision,PgArray, uuid, varchar, time } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
 
 export const user = pgTable("user", {
@@ -76,7 +76,7 @@ export const creator = pgTable("creator" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  age : integer("age"),
+  birth : date('birth'),
   image : text("image"),
   imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
@@ -86,7 +86,7 @@ export const cast = pgTable("cast" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  age : integer("age").notNull(),
+  birth : date("age"),
   job : text("job").notNull(),
   image : text("image"),
   imageId : text("imageId"),
@@ -108,6 +108,7 @@ export const show = pgTable("show" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   title : text("title").notNull().unique(),
+  secondTilte : text("secondTilte"),
   tags : text("tags").array() ,
   relativeTitle : text("relativeTitle").notNull(),
   description : text("description").notNull(),
