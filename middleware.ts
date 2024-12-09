@@ -1,8 +1,7 @@
 import { betterFetch } from "@better-fetch/fetch";
-import type { Session } from "better-auth/types";
 import { NextResponse, type NextRequest } from "next/server";
-import {UserMilldreware,UserPrefrences} from '@/lib/utils'
-import {adminRoutes,privateRoutes,prefenceRoute} from '@/constant/router'
+import {UserMilldreware} from '@/lib/utils'
+import {adminRoutes,privateRoutes} from '@/constant/router'
 export default async function authMiddleware(request: NextRequest) {
     const {nextUrl} = request;
 	const { data: session } = await betterFetch<UserMilldreware>(

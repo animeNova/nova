@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from '../ui/theme-provider';
 import Navbar from "@/components/header/navbar";
-import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
+import {HydrationBoundary, QueryClient , QueryClientProvider} from '@tanstack/react-query'
 const Provider = ({
     children
 } : {children:React.ReactNode}) => {
@@ -14,6 +14,7 @@ const Provider = ({
     defaultTheme="system"
     enableSystem
     >
+    
     <Navbar />
     <div className="pt-28 md:pt-16">     
     <main className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-action"
 import Image from "next/image";
 import { formatDistance } from "date-fns";
-import PinButton from "@/app/(admin)/components/pinShow/PinButton";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -65,8 +64,4 @@ export const columns: ColumnDef<Show>[] = [
     id : "actions", 
     cell : ({row}) => <CellAction data={row.original} />
   },
-  {
-    id : "pin", 
-    cell : ({row}) => <PinButton showId={row.original.id} />
-  }
 ]

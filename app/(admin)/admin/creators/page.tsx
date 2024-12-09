@@ -2,7 +2,7 @@ import React from 'react'
 import { getCreators } from '../../actions/creator/creator.action'
 import {DataTable} from '../../components/table/data-table'
 import { columns } from './components/columns';
-import Header from '@/components/ui/heade';
+import Header from '@/components/ui/header';
 import { Button } from '@/components/ui/button';
 import Title from '../../components/title/Title';
 import Link from 'next/link';

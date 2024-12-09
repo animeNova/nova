@@ -14,10 +14,11 @@ import HeroSlide from './HeroSlide'
 import { Button } from '../ui/button'
 import { useGetPinned } from '@/hooks/useGetPinned'
 import HeroLoading from './loading'
+import { useGetHeroRec } from '@/hooks/useGetHeroRec'
 const SLIDE_COUNT = 2
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 const Hero = () => {
-  const {data,isLoading} =useGetPinned()
+  const {data,isLoading} =useGetHeroRec()
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
   const [currentIndex, setCurrentIndex] = useState(0)
   const onSelect = useCallback(() => {
@@ -48,7 +49,7 @@ const Hero = () => {
             {data?.map((show ,index) => (
                   <div className="embla__slide" key={index}>
                    <div className="embla__slide__number" key={index} >
-                     <HeroSlide  id={show.show?.id!} title={show.show?.title!} description={show.show?.description!} trailer={show.show?.trailer!} video={show.show?.video!} isActive={index === currentIndex}/>
+                     <HeroSlide  id={show?.id!} title={show?.title!} description={show?.description!} trailer={show?.trailer!} video={show?.video!} isActive={index === currentIndex}/>
                    </div>
                  </div>
             ))}
