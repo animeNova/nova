@@ -12,20 +12,20 @@ export function YearPicker({
   value,
   onChange,
 }: {
-  value?: Date;
-  onChange?: (date: Date | undefined) => void;
+  value?: string;
+  onChange?: (date: string | undefined) => void;
 }) {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 201 }, (_, i) => 1900 + i);
 
   const handleYearChange = (year: string) => {
-    const date = new Date(parseInt(year), 0, 1);
+    const date = year;;
     onChange?.(date);
   };
 
   return (
     <Select
-      value={value ? value.getFullYear().toString() : undefined}
+      value={value ? value : undefined}
       onValueChange={handleYearChange}
     >
       <SelectTrigger className="w-[200px]">

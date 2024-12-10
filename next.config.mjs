@@ -1,6 +1,10 @@
 import { withNextVideo } from "next-video/process";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    webpack: (config) => {
+        config.resolve.fallback = { ...config.resolve.fallback, fs: false }; // Avoids issues with Node modules
+        return config;
+      },
     images :{
         remotePatterns : [
             {

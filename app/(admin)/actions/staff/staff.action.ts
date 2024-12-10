@@ -16,7 +16,7 @@ export const getStaffs = async (props : QueryPorps) => {
     const result = await db.select({
         id : cast.id ,
         name : cast.name ,
-        age : cast.age ,
+        birth : cast.birth ,
         job : cast.job ,
         image : cast.image
     }).from(cast).orderBy(orderBy == 'asc' ? asc(cast.createdAt) : desc(cast.createdAt)).offset(offset).limit(limit)
@@ -37,7 +37,7 @@ export const getAllStaffs = async () => {
     const result = await db.select({
         id : cast.id ,
         name : cast.name ,
-        age : cast.age ,
+        birth : cast.birth ,
         job : cast.job ,
         image : cast.image
     }).from(cast)
@@ -69,10 +69,10 @@ export const createStaff = async (_data : z.infer<typeof staffSchema>) => {
     if(error){
         return {error : error}
     }
-    const {age,job,name,image} = data;
+    const {birth,job,name,image} = data;
     await db.insert(cast).values({
         name : name ,
-        age : Number(age) ,
+        birth : birth ,
         job : job ,
         image : image
     }) 
@@ -89,10 +89,10 @@ export const updateStaff = async (id : string , _data : z.infer<typeof staffSche
     if(error){
      return {error : error}
     }
-    const {age,image,job,name} = data;
+    const {birth,image,job,name} = data;
     await db.update(cast).set({
         name : name ,
-        age : Number(age) ,
+        birth : birth,
         job : job ,
         image : image
     }).where(eq(cast.id,id))
