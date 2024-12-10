@@ -9,18 +9,14 @@ export const languageSchema = z.object({
 })
 export const staffSchema = z.object({
     name : z.string().min(2).max(55) ,
-    age : z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-        message: "Expected number, received a string"
-      }),
+    birth :z.string().optional(),
     job : z.string().min(2).max(55),
-    image : z.string().min(2).optional(),
+    image : z.string().optional(),
 })
 export const creatorSchema = z.object({
     name : z.string().min(2).max(55) ,
-    age : z.string().refine((val) => !Number.isNaN(parseInt(val, 10)), {
-        message: "Expected number, received a string"
-      }),
-    image : z.string().min(2).optional(),
+    birth :z.string().optional(),
+    image : z.string().optional(),
 })
 export const StudioSchema = z.object({
     name : z.string().min(2).max(55) ,

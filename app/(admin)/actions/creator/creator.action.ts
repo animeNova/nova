@@ -16,7 +16,7 @@ export const getCreators = async (props : QueryPorps) => {
     const result = await db.select({
         id : creator.id ,
         name : creator.name ,
-        age : creator.age ,
+        birth : creator.birth ,
         image : creator.image
     }).from(creator).orderBy(orderBy == 'asc' ? asc(creator.createdAt) : desc(creator.createdAt)).offset(offset).limit(limit)
     const totalcreator = totalcreatorResult[0].count;
@@ -39,7 +39,7 @@ export const getAllCreators = async () => {
     const result = await db.select({
         id : creator.id ,
         name : creator.name ,
-        age : creator.age ,
+        birth : creator.birth ,
         image : creator.image
     }).from(creator)
 
@@ -66,11 +66,12 @@ export const createCreator = async (_data : z.infer<typeof creatorSchema>) => {
     if(error){
         return {error : error}
     }
-    const {age,name,image} = data;
+    const {birth,name,image} = data;
     await db.insert(creator).values({
         name : name ,
-        age : Number(age) ,
-        image : image
+        birth : birth,
+        image : image ,
+        
     }) 
     revalidatePath('/admin/creators')
     return {
@@ -85,10 +86,10 @@ export const updateCreator = async (id : string , _data : z.infer<typeof creator
     if(error){
      return {error : error}
     }
-    const {age,image,name} = data;
+    const {birth,image,name} = data;
     await db.update(creator).set({
         name : name ,
-        age : Number(age) ,
+        birth : birth,
         image : image
     }).where(eq(creator.id,id))
     revalidatePath('/admin/creators')

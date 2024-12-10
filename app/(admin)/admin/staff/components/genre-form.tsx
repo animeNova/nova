@@ -25,6 +25,7 @@ import { staffSchema } from '@/app/(admin)/types/zod.types';
 import { createStaff,deleteStaff,updateStaff } from '@/app/(admin)/actions/staff/staff.action';
 import toast from 'react-hot-toast';
 import { CldUploadWidget } from 'next-cloudinary';
+import { DateTimePicker } from '@/components/ui/datetime-picker';
 
 interface StaffFormProps {
   initialData?: any| null 
@@ -47,7 +48,7 @@ export const StaffForm: React.FC<StaffFormProps> = ({
     ? initialData
     : {
         name :"",
-        age :0 ,
+        birth :new Date() ,
         job :"",
         image :"",
       };
@@ -158,15 +159,13 @@ export const StaffForm: React.FC<StaffFormProps> = ({
         />
                <FormField
           control={form.control}
-          name="age"
+          name="birth"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Age</FormLabel>
-              <FormControl>
-                <Input placeholder="age" {...field}  />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <FormItem className="flex flex-col w-full">
+            <FormLabel>Date</FormLabel>
+            <DateTimePicker hideTime onChange={field.onChange} value={new Date(field.value)}   />
+            <FormMessage />
+          </FormItem>
           )}
         />
           </div>

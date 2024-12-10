@@ -68,7 +68,6 @@ export const studio = pgTable("studio" , {
   .primaryKey(),
   title : text("title").notNull().unique(),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -76,9 +75,8 @@ export const creator = pgTable("creator" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  birth : date('birth'),
+  birth : text('birth'),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -86,10 +84,9 @@ export const cast = pgTable("cast" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  birth : date("age"),
+  birth : text("birth"),
   job : text("job").notNull(),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -140,7 +137,6 @@ export const collection = pgTable("collection" , {
   description : text("description"),
   private : boolean("private").default(false),
   image : text("image"),
-  imageId:text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
   userId : text("userId").notNull()

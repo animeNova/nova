@@ -1,4 +1,3 @@
-import { getHeroRecommendation } from '@/app/(root)/actions/hero/hero'
 import { getEnhancedRecommendations } from '@/app/(root)/actions/recomended/recomended'
 import {useQuery} from '@tanstack/react-query'
 

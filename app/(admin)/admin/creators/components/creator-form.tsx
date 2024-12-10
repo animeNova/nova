@@ -25,6 +25,8 @@ import { creatorSchema} from '@/app/(admin)/types/zod.types';
 import { createCreator,deleteCreator,updateCreator } from '@/app/(admin)/actions/creator/creator.action';
 import toast from 'react-hot-toast';
 import { CldUploadWidget } from 'next-cloudinary';
+import { DateTimePicker } from '@/components/ui/datetime-picker';
+import { YearPicker } from '@/components/ui/yearPicker';
 
 interface CreatorFormProps {
   initialData?: any| null 
@@ -47,7 +49,7 @@ export const CreatorForm: React.FC<CreatorFormProps> = ({
     ? initialData
     : {
         name :"",
-        age :0 ,
+        birth :"" ,
         image :"",
       };
 
@@ -144,15 +146,13 @@ export const CreatorForm: React.FC<CreatorFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="age"
+          name="birth"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Age</FormLabel>
-              <FormControl>
-                <Input placeholder="age" {...field}  />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <FormItem className="flex flex-col w-full">
+            <FormLabel>Birth Year</FormLabel>
+            <YearPicker onChange={field.onChange} value={field.value} />
+            <FormMessage />
+          </FormItem>
           )}
         />
           </div>
