@@ -1,6 +1,6 @@
 import { getStaff } from '@/app/(admin)/actions/staff/staff.action'
 import React from 'react'
-import { StaffForm } from '../../components/genre-form';
+import { StaffForm } from '../../components/staff-form';
 
 interface PageProps {
     params : {

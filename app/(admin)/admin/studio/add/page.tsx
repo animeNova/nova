@@ -1,5 +1,5 @@
 import React from 'react'
-import { StudioForm } from '../components/genre-form'
+import { StudioForm } from '../components/studio-form'
 
 const page = () => {
   return (

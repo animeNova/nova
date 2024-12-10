@@ -1,6 +1,6 @@
 {
-  "id": "efb844c6-ed71-4679-ba19-6fea75d79daf",
-  "prevId": "80b32436-6013-41fa-a5f3-b8804d1611bf",
+  "id": "0cdfc307-4914-4bc4-92ed-35511975a07b",
+  "prevId": "9e1e0e49-345c-40b5-9e51-85f8c6fd4b19",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -13,7 +13,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'X9GCKLTPzLYZcVvI5QNjX'"
+          "default": "'MNi4xzT0K6u2S6CpFuay8'"
         },
         "accountId": {
           "name": "accountId",
@@ -100,9 +100,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "age": {
-          "name": "age",
-          "type": "date",
+        "birth": {
+          "name": "birth",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -317,7 +317,7 @@
         },
         "birth": {
           "name": "birth",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -454,7 +454,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'_lrX5CiWshQWtHi2u-G2B'"
+          "default": "'spUDqCmTyrtLZ8im5O7TK'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -592,7 +592,7 @@
         },
         "embedding": {
           "name": "embedding",
-          "type": "vector(1024)",
+          "type": "vector(512)",
           "primaryKey": false,
           "notNull": false
         },
@@ -839,7 +839,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'7QpWeDQGFZTNdDKoPl7nf'"
+          "default": "'vwBvEW56Lmd_IMoQRSz19'"
         },
         "name": {
           "name": "name",
@@ -1048,7 +1048,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'SseF2R6z5VX5z6BJ-qsb8'"
+          "default": "'uoZ5pxV584lbq0kQW9qGW'"
         },
         "identifier": {
           "name": "identifier",

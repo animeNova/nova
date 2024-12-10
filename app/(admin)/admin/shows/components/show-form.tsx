@@ -85,6 +85,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
     ? initialData
     : {
         title: '',
+        secondTilte: '',
         relativeTitle:"" ,
         description : "" ,
         status : "" ,
@@ -223,6 +224,20 @@ export const ShowForm: React.FC<ShowFormProps> = ({
               <FormLabel>name</FormLabel>
               <FormControl>
                 <Input placeholder="title" {...field} className='w-[150px] md:w-auto' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+            />
+          <FormField
+          control={form.control}
+          name="secondTilte"
+          
+          render={({ field }) => (
+            <FormItem >
+              <FormLabel>Second Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Second Title" {...field} className='w-[150px] md:w-auto' />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -31,7 +31,7 @@ export const columns: ColumnDef<Staff>[] = [
   {
     accessorKey: "image",
     header: "Image",
-    cell : ({row}) => <Image src={row.original.image!} width={1000} height={1000} alt="" className="h-8 w-8 rounded-full"  />
+    cell : ({row}) => <Image src={row.original.image! || '/assets/unknown.jpg'} width={1000} height={1000} alt="" className="h-8 w-8 rounded-full"  />
   },
   {
     id : "actions", 

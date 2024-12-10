@@ -1,6 +1,6 @@
 import { getStaff } from '@/app/(admin)/actions/staff/staff.action'
 import React from 'react'
-import { StaffForm } from '../../components/genre-form';
+import { StudioForm } from '../../components/studio-form';
 
 interface PageProps {
     params : {
@@ -13,7 +13,7 @@ const page =async (params : PageProps) => {
     
   return (
     <>
-      <StaffForm initialData={data} />
+      <StudioForm initialData={data} />
     </>
   )
 }

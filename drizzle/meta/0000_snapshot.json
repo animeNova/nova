@@ -1,5 +1,5 @@
 {
-  "id": "80b32436-6013-41fa-a5f3-b8804d1611bf",
+  "id": "9e1e0e49-345c-40b5-9e51-85f8c6fd4b19",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -13,7 +13,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'TE6KgKQqWmruupSucFysl'"
+          "default": "'ohDIbgq8lFvKFGp9zujVW'"
         },
         "accountId": {
           "name": "accountId",
@@ -100,9 +100,9 @@
           "primaryKey": false,
           "notNull": true
         },
-        "age": {
-          "name": "age",
-          "type": "date",
+        "birth": {
+          "name": "birth",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -114,12 +114,6 @@
         },
         "image": {
           "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "imageId": {
-          "name": "imageId",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -278,12 +272,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "imageId": {
-          "name": "imageId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -329,18 +317,12 @@
         },
         "birth": {
           "name": "birth",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "image": {
           "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "imageId": {
-          "name": "imageId",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -472,7 +454,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'L1hFDm7J8BkwTEHGB03Gp'"
+          "default": "'bvqsmWNk3m-M97JiVLKQG'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -820,12 +802,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "imageId": {
-          "name": "imageId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -863,7 +839,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'GNRqsNlSSBlJOPHqAw-oN'"
+          "default": "'ri7HGXnlUWyhDWuLH-XC4'"
         },
         "name": {
           "name": "name",
@@ -1072,7 +1048,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'01MG1Nqoy8gx08iwk-Z0C'"
+          "default": "'TiiLUS9damQKtSulyS6Tl'"
         },
         "identifier": {
           "name": "identifier",

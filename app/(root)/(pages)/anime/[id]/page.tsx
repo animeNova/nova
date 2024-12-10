@@ -1,6 +1,6 @@
 import AnimePage from '@/components/anime/animePage';
 import React from 'react'
-import { getRecommendation, getShow } from '../../../actions/shows/show';
+import { getShow } from '../../../actions/shows/show';
 interface PageProps {
     params : {
         id : string;

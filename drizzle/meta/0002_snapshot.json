@@ -1,6 +1,6 @@
 {
-  "id": "3e1b3f46-1e28-4413-93a0-c1d948a67d8c",
-  "prevId": "efb844c6-ed71-4679-ba19-6fea75d79daf",
+  "id": "2cb0681f-2163-4767-8d29-d0a1978494dc",
+  "prevId": "0cdfc307-4914-4bc4-92ed-35511975a07b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -13,7 +13,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'0NaqnXqF7QpsM6YqkawId'"
+          "default": "'KbVGdRn4V0XVngGbPMFIb'"
         },
         "accountId": {
           "name": "accountId",
@@ -454,7 +454,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'xQl-ku3zqDni5oT7n-EHv'"
+          "default": "'Yh61cv2ZQkvncUiVNQvA-'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -839,7 +839,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'0RjglxBKC-cjRILlef2Td'"
+          "default": "'c7il8f7iGGKXbB_vJuJ8k'"
         },
         "name": {
           "name": "name",
@@ -1048,7 +1048,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'dBTsgh1xnPuy1vElR6Y__'"
+          "default": "'Ta3k6siOWk6H83akZhPSO'"
         },
         "identifier": {
           "name": "identifier",

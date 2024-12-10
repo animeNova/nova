@@ -48,7 +48,7 @@ interface AnimePageProps {
                 id:string;
                 name:string;
                 image:string;
-                age:number;
+                birth:string;
                 job:string;
             }
         }[];

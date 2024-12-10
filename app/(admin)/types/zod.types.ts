@@ -27,6 +27,7 @@ export const showSchema = z.object({
     title : z.string().min(2,{
         message : "title is required"
     }).max(255),
+    secondTilte : z.string(),
     relativeTitle : z.string().min(2,{
         message : "relativeTitle is required"
     }).max(255),

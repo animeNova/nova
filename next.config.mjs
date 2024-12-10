@@ -25,6 +25,7 @@ const nextConfig = {
         // This will allow builds to complete even if there are TypeScript errors
         ignoreBuildErrors: true,
     },
+    experimental: { serverComponentsExternalPackages: ['@peculiar' , '@peculiar/asn1-schema' , '@simplewebauthn' , '@simplewebauthn/server','@simplewebauthn+server'] ,esmExternals: false}
 };
 
 export default withNextVideo(nextConfig);

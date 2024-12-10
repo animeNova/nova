@@ -66,7 +66,7 @@ export const getShow = async (id : string) => {
                             id:true,
                             image:true,
                             name:true,
-                            age:true,
+                            birth:true,
                             job:true
                         }
                     }
@@ -139,7 +139,7 @@ export const getRelations =async (id:string) => {
     })
 
     const relation = await db.query.show.findMany({
-        where : (_show , {eq,and,ne}) => and(ne(_show.id,id),eq(_show.relativeTitle,showR.relativeTitle)) ,
+        where : (_show , {eq,and,ne}) => and(ne(_show.id,id),eq(_show.relativeTitle,showR?.relativeTitle!)) ,
         columns :{
             id : true,
             title :true,
@@ -150,4 +150,18 @@ export const getRelations =async (id:string) => {
     })
 
     return relation;
+}
+
+export const getBestOfYear = async () => {
+    const shows = await db.query.show.findMany({
+        columns : {
+            id : true,
+            title :true,
+            image:true,
+            video:true,
+            airing :true
+        } ,
+        orderBy : (_field,{desc}) => [desc(_field.airing) , desc(_field.rating)]
+    })
+    return shows;
 }

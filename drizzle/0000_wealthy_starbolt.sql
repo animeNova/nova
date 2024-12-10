@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"id" text PRIMARY KEY DEFAULT 'TE6KgKQqWmruupSucFysl' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'ohDIbgq8lFvKFGp9zujVW' NOT NULL,
 	"accountId" text NOT NULL,
 	"providerId" text NOT NULL,
 	"userId" text NOT NULL,
@@ -13,10 +13,9 @@ CREATE TABLE IF NOT EXISTS "account" (
 CREATE TABLE IF NOT EXISTS "cast" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
-	"age" date,
+	"birth" text,
 	"job" text NOT NULL,
 	"image" text,
-	"imageId" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "cast_name_unique" UNIQUE("name")
@@ -39,7 +38,6 @@ CREATE TABLE IF NOT EXISTS "collection" (
 	"description" text,
 	"private" boolean DEFAULT false,
 	"image" text,
-	"imageId" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"userId" text NOT NULL
@@ -48,9 +46,8 @@ CREATE TABLE IF NOT EXISTS "collection" (
 CREATE TABLE IF NOT EXISTS "creator" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
-	"birth" date,
+	"birth" text,
 	"image" text,
-	"imageId" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "creator_name_unique" UNIQUE("name")
@@ -73,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "language" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
-	"id" text PRIMARY KEY DEFAULT 'L1hFDm7J8BkwTEHGB03Gp' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'bvqsmWNk3m-M97JiVLKQG' NOT NULL,
 	"expiresAt" timestamp NOT NULL,
 	"ipAddress" text,
 	"userAgent" text,
@@ -129,14 +126,13 @@ CREATE TABLE IF NOT EXISTS "studio" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" text NOT NULL,
 	"image" text,
-	"imageId" text,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "studio_title_unique" UNIQUE("title")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY DEFAULT 'GNRqsNlSSBlJOPHqAw-oN' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'ri7HGXnlUWyhDWuLH-XC4' NOT NULL,
 	"name" text NOT NULL,
 	"password" text,
 	"email" text NOT NULL,
@@ -166,7 +162,7 @@ CREATE TABLE IF NOT EXISTS "user_preferences" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verification" (
-	"id" text PRIMARY KEY DEFAULT '01MG1Nqoy8gx08iwk-Z0C' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'TiiLUS9damQKtSulyS6Tl' NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
 	"expiresAt" timestamp NOT NULL

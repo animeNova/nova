@@ -118,7 +118,7 @@ export const show = pgTable("show" , {
   backgroundImage : text("backgroundImage").notNull(),
   images : text("images").array().default(sql`'{}'::text[]`) ,
   embedding : vector("embedding",{
-    dimensions : 1024
+    dimensions : 512
   }),
   created_at: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),

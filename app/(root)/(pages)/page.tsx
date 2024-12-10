@@ -1,24 +1,46 @@
 "use client";
-import AnimeCardsCarousel from "@/components/cards/AnimeCardsCarousel";
-import CollectionCard from "@/components/collection/CollectionCard";
-import CollectionWarapper from "@/components/collection/CollectionWarapper";
-import Hero from "@/components/Hero/Hero";
-import Popular from "@/components/(sliders)/popularShows/popular";
-import Recommendation from "@/components/(sliders)/recommendation/recommendation";
 
-export  default function Home() { 
+import Best from "@/components/(sliders)/bestOfSeason/Best";
+import dynamic from "next/dynamic";
+const AnimeCardsCarousel = dynamic(
+  () => import('@/components/cards/AnimeCardsCarousel'),
+  { ssr: false }
+)
+const CollectionCard = dynamic(
+  () => import('@/components/collection/CollectionCard'),
+  { ssr: false }
+)
+const CollectionWarapper = dynamic(
+  () => import('@/components/collection/CollectionWarapper'),
+  { ssr: false }
+)
+const Hero = dynamic(
+  () => import('@/components/Hero/Hero'),
+  { ssr: false }
+)
+const Popular = dynamic(
+  () => import('@/components/(sliders)/popularShows/popular'),
+  { ssr: false }
+)
+const Recommendation = dynamic(
+  () => import('@/components/(sliders)/recommendation/recommendation'),
+  { ssr: false }
+)
+
+export default function Home() { 
   return (
     <div className="space-y-6">
       <Hero />
       <Recommendation />
-      <AnimeCardsCarousel />
+      <Best />
+      {/* <AnimeCardsCarousel /> */}
       <CollectionWarapper>
       <CollectionCard/>
       <CollectionCard/>
       <CollectionCard/>
       </CollectionWarapper>
-      <AnimeCardsCarousel />
-      <Popular />
+      {/* <AnimeCardsCarousel /> */}
+      {/* <Popular /> */}
     </div>
   );
 }

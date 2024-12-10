@@ -45,11 +45,12 @@ export const createshow = async (_data : z.infer<typeof showSchema>) => {
    if(error){
     return {error : error}
    }
-   const {title,relativeTitle,creatorId,description,genreIds,image,languageId,rating,season,staffs,status,studioId,type,airing,backgroundImage,images,trailer,video,videoKey,keyWord} = data
+   const {title,secondTilte,relativeTitle,creatorId,description,genreIds,image,languageId,rating,season,staffs,status,studioId,type,airing,backgroundImage,images,trailer,video,videoKey,keyWord} = data
    const embedding = await generateEmbeddings(`${description} ${keyWord.join()}`)
   
    const [newShow] = await db.insert(show).values({
     title ,
+    secondTilte : secondTilte,
     relativeTitle ,
     description ,
     embedding : embedding ,
@@ -172,6 +173,7 @@ export const getshow = async (id : string) => {
     const formatedResult = {
         id : result.id ,
         title : result.title,
+        secondTilte : result.secondTilte,
         relativeTitle : result.relativeTitle,
         image : result.image,
         keyWord : result.tags,
@@ -205,13 +207,14 @@ export const updateshow = async (id : string , _data : z.infer<typeof showSchema
     if(error){
      return {error : error}
     }
-    const {title,relativeTitle,creatorId,description,genreIds,image,languageId,rating,season,staffs,status,studioId,type,airing,backgroundImage,images,trailer,video,videoKey,keyWord} = data
+    const {title,secondTilte,relativeTitle,creatorId,description,genreIds,image,languageId,rating,season,staffs,status,studioId,type,airing,backgroundImage,images,trailer,video,videoKey,keyWord} = data
 
     const embedding = await generateEmbeddings(`${description} ${keyWord.join()}`)
 
 
     const [newShow] = await db.update(show).set({
      title ,
+     secondTilte ,
      relativeTitle ,
      description ,
      embedding : embedding ,

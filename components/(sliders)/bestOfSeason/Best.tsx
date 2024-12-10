@@ -1,29 +1,23 @@
 "use client";
+import Header from '@/components/ui/header'
 import React from 'react'
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
   } from "@/components/ui/carousel"
-import Header from '@/components/ui/header';
-import { useSession } from '@/app/lib/auth/client';
-import { useGetRecommendation } from '@/hooks/useGetRecommendation';
+import { useGetBestYear } from '@/hooks/useGetBestYear';
 import AnimeCard from '@/components/cards/AnimeCard';
 import CardSkeleton from '@/components/cardSkeleton/CardSkeleton';
-
-const Recommendation = () => {
-    const {data : user} = useSession()
-    const {data ,isLoading} = useGetRecommendation()
-
-    if(!user?.session){
-        return null;
-    }
+const Best = () => {
+    const {data,isLoading} = useGetBestYear()
     if(isLoading){
-      return <CardSkeleton isSlide={true} count={10}  />
-  }
+        return <CardSkeleton isSlide={true} count={10}  />
+    }
   return (
-    <div className='space-y-3'>
-        <Header title='You May Like'/>
+    <>
+          <div className='space-y-3'>
+        <Header title='Best of 2024'/>
         <Carousel>
         <CarouselContent className='py-4 px-4' >
             {
@@ -37,7 +31,8 @@ const Recommendation = () => {
         </CarouselContent>
         </Carousel>
     </div>
+    </>
   )
 }
 
-export default Recommendation
+export default Best
