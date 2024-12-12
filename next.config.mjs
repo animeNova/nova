@@ -1,10 +1,7 @@
 import { withNextVideo } from "next-video/process";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config) => {
-        config.resolve.fallback = { ...config.resolve.fallback, fs: false }; // Avoids issues with Node modules
-        return config;
-      },
+ 
     images :{
         remotePatterns : [
             {
@@ -25,7 +22,7 @@ const nextConfig = {
         // This will allow builds to complete even if there are TypeScript errors
         ignoreBuildErrors: true,
     },
-    experimental: { serverComponentsExternalPackages: ['@peculiar' , '@peculiar/asn1-schema' , '@simplewebauthn' , '@simplewebauthn/server','@simplewebauthn+server'] ,esmExternals: false}
+    serverExternalPackages : ["@simplewebauthn/server"]
 };
 
 export default withNextVideo(nextConfig);

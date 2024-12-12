@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 
 export async function getEnhancedRecommendations() {
     const user = await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     })
     if(!user?.session){
       return null;

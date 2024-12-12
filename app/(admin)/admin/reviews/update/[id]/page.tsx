@@ -3,13 +3,13 @@ import React from 'react'
 import { GenerForm } from '../../components/genre-form';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getGenre(params.params.id);
+    const data = await getGenre((await params.params).id);
     
   return (
     <>

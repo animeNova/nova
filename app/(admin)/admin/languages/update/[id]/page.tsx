@@ -4,13 +4,13 @@ import { LanguageForm } from '../../components/language-form';
 import { redirect } from 'next/navigation';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getLanguage(params.params.id);
+    const data = await getLanguage((await params.params).id);
     if(!data){
       redirect('/')
     }

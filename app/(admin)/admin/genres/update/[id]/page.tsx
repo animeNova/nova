@@ -4,13 +4,13 @@ import { GenerForm } from '../../components/genre-form';
 import { redirect } from 'next/navigation';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getGenre(params.params.id);
+    const data = await getGenre((await params.params).id);
     if(!data){
       redirect('/')
     }

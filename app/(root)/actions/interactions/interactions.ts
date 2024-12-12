@@ -15,7 +15,7 @@ export const createInteraction = async ({
     showId
 }:createInteractionProps) => {
     const isAuth =await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     })
     if(!isAuth){
         return {message :"You are not authurized!"}

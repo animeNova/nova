@@ -7,14 +7,15 @@ interface PageProps {
     }
 }
 
-const page : React.FC<PageProps> =async ({params}) => {
-    const data = await getShow(params.id)    
-    
-  return (
-    <>
-    <AnimePage data={data}  />
-    </>
-  )
+const page : React.FC<PageProps> =async props => {
+    const params = await props.params;
+    const data = await getShow(params.id)
+
+    return (
+      <>
+      <AnimePage data={data}  />
+      </>
+    )
 }
 
 export default page

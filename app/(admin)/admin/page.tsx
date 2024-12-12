@@ -8,7 +8,7 @@ import ShowsCard from '../components/stats/shows/ShowsCard'
 
 const page =async () => {
   const data = await auth.api.getSession({
-    headers : headers()
+    headers : await headers()
   })
   return (
     <div className="space-y-7">

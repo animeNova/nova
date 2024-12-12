@@ -27,7 +27,7 @@ const CardSkeleton : React.FC<CardSkeletonProps> = ({count = 5,isSlide = false})
         <CarouselContent className='py-4 px-4'>
               {
                 Array.apply(null,Array(count)).map((_,_index) => (
-                  <CarouselItem className='basis-1/2 md:basis-[19%]'>
+                  <CarouselItem className='basis-1/2 md:basis-[19%]' key={_index}>
                         <Skeleton key={_index} className='w-[180px] h-[260px] md:w-[220px] md:h-[300px] rounded-md mx-6' />
 
                   </CarouselItem>

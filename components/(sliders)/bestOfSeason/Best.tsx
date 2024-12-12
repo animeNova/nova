@@ -22,8 +22,8 @@ const Best = () => {
         <CarouselContent className='py-4 px-4' >
             {
                 data?.map((show) => (
-                    <CarouselItem className='basis-1/2 md:basis-[19%] '>
-                    <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} />
+                    <CarouselItem className='basis-1/2 md:basis-[19%]' key={show.id}>
+                    <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing}  key={show.id}/>
                     </CarouselItem>
                 ))
             }

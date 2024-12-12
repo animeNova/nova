@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     const user = await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     });
     if(!user){
         return NextResponse.json("unauthorized!")
