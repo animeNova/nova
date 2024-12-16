@@ -18,17 +18,6 @@ export default function Home() {
       <Hero />
       <Recommendation />
       <Best />
-<<<<<<< HEAD
-=======
-      {/* <AnimeCardsCarousel /> */}
-{/*       <CollectionWarapper>
-      <CollectionCard/>
-      <CollectionCard/>
-      <CollectionCard/>
-      </CollectionWarapper> */}
-      {/* <AnimeCardsCarousel /> */}
-      {/* <Popular /> */}
->>>>>>> 03e878fe4b5ca8cb31f2a76a96a353bd8b34eb3b
     </div>
   );
 }
