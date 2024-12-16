@@ -6,11 +6,12 @@ import Header from '@/components/ui/header';
 import { Button } from '@/components/ui/button';
 import Title from '../../components/title/Title';
 import Link from 'next/link';
-const page =async ({ searchParams }: { searchParams: { page?: string} }) => {
-    const page = parseInt(searchParams.page || "1"); 
-    const {result,currentpage,hasNextPage,totalUsers,totalPages} =await getUsers({
-        page : page
-    })     
+const page =async (props: { searchParams: Promise<{ page?: string}> }) => {
+  const searchParams = await props.searchParams;
+  const page = parseInt(searchParams.page || "1");
+  const {result,currentpage,hasNextPage,totalUsers,totalPages} =await getUsers({
+      page : page
+  })
   return (
     <div className='space-y-4'>
         <div className='flex justify-between  items-center'> 

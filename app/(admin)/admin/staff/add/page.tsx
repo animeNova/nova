@@ -1,5 +1,5 @@
 import React from 'react'
-import { StaffForm } from '../components/genre-form'
+import { StaffForm } from '../components/staff-form'
 
 const page = () => {
   return (

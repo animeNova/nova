@@ -8,13 +8,13 @@ import { getAllCreators } from '@/app/(admin)/actions/creator/creator.action';
 import { getAllLanguages } from '@/app/(admin)/actions/languages/language.action';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getshow(params.params.id);
+    const data = await getshow((await params.params).id);
     const genres = await getAllGenres()
     const studio = await getAllStudios()
     const creators = await getAllCreators()

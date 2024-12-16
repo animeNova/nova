@@ -3,13 +3,13 @@ import React from 'react'
 import { CharacterForm } from '../../components/character-form';
 
 interface PageProps {
-    params : {
+    params : Promise<{
       characterId : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getCharacter(params.params.characterId);
+    const data = await getCharacter((await params.params).characterId);
   
   return (
     <>

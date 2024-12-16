@@ -10,7 +10,7 @@ import { prefrencesSchema } from "../../types/zod.types";
 
 export const getUserPrefrences = async () => {
     const user =await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     })
   
     const results = await db.query.userPreferences.findMany({
@@ -27,7 +27,7 @@ export const createPrefrences = async (_data : z.infer<typeof prefrencesSchema>)
         }
     }
     const user = await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     })
     const genres = data.genres;
     const prefrences = genres.map((gen) => ({

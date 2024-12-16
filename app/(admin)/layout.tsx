@@ -17,7 +17,7 @@ export default async function AdminLayout({
 }>) {
     
     const isAuth =await auth.api.getSession({
-        headers : headers()
+        headers : await headers()
     })
     if(isAuth?.user.role !== 'admin'){
         redirect('/')

@@ -18,7 +18,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await auth.api.getSession({
-    headers : headers()
+    headers : await headers()
   })
   const userPrefrinces = await getUserPrefrences()
   if(user?.session){

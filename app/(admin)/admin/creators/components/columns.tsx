@@ -9,7 +9,7 @@ import Image from "next/image"
 export type Creator = {
   id:string;
   name:string;
-  age:number | null;
+  birth:string | null;
   image : string | null;
 }
 
@@ -20,13 +20,13 @@ export const columns: ColumnDef<Creator>[] = [
     header: "Name",
   },
   {
-    accessorKey: "age",
-    header: "Age",
+    accessorKey: "birth",
+    header: "Birth",
   },
   {
     accessorKey: "image",
     header: "Image",
-    cell : ({row}) => <Image src={row.original.image!} width={1000} height={1000} alt="" className="h-8 w-8 rounded-full"  />
+    cell : ({row}) => <Image src={row.original.image! || '/assets/unknown.jpg'} width={1000} height={1000} alt="" className="h-8 w-8 rounded-full"  />
   },
   {
     id : "actions", 

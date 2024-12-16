@@ -3,13 +3,13 @@ import React from 'react'
 import { CreatorForm } from '../../components/creator-form';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getCreator(params.params.id);
+    const data = await getCreator((await params.params).id);
     
   return (
     <>

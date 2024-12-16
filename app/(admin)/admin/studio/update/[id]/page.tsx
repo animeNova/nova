@@ -1,19 +1,19 @@
 import { getStaff } from '@/app/(admin)/actions/staff/staff.action'
 import React from 'react'
-import { StaffForm } from '../../components/genre-form';
+import { StudioForm } from '../../components/studio-form';
 
 interface PageProps {
-    params : {
+    params : Promise<{
         id : string
-    }
+    }>
 }
 
 const page =async (params : PageProps) => {
-    const data = await getStaff(params.params.id);
+    const data = await getStaff((await params.params).id);
     
   return (
     <>
-      <StaffForm initialData={data} />
+      <StudioForm initialData={data} />
     </>
   )
 }

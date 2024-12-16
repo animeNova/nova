@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, date,decimal,doublePrecision,PgArray, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, timestamp, boolean, primaryKey, vector, date,decimal,doublePrecision,PgArray, uuid, varchar, time } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
 
 export const user = pgTable("user", {
@@ -68,7 +68,6 @@ export const studio = pgTable("studio" , {
   .primaryKey(),
   title : text("title").notNull().unique(),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -76,9 +75,8 @@ export const creator = pgTable("creator" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  age : integer("age"),
+  birth : text('birth'),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -86,10 +84,9 @@ export const cast = pgTable("cast" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   name : text("name").notNull().unique(),
-  age : integer("age").notNull(),
+  birth : text("birth"),
   job : text("job").notNull(),
   image : text("image"),
-  imageId : text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull()
 })
@@ -108,6 +105,7 @@ export const show = pgTable("show" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID
   .primaryKey(),
   title : text("title").notNull().unique(),
+  secondTilte : text("secondTilte"),
   tags : text("tags").array() ,
   relativeTitle : text("relativeTitle").notNull(),
   description : text("description").notNull(),
@@ -120,7 +118,7 @@ export const show = pgTable("show" , {
   backgroundImage : text("backgroundImage").notNull(),
   images : text("images").array().default(sql`'{}'::text[]`) ,
   embedding : vector("embedding",{
-    dimensions : 1024
+    dimensions : 512
   }),
   created_at: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
@@ -139,7 +137,6 @@ export const collection = pgTable("collection" , {
   description : text("description"),
   private : boolean("private").default(false),
   image : text("image"),
-  imageId:text("imageId"),
   createdAt: timestamp('createdAt').defaultNow().notNull(),
   updatedAt: timestamp('updatedAt').defaultNow().notNull(),
   userId : text("userId").notNull()
