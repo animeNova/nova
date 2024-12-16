@@ -34,11 +34,11 @@ export default function Home() {
       <Recommendation />
       <Best />
       {/* <AnimeCardsCarousel /> */}
-      <CollectionWarapper>
+      {/* <CollectionWarapper>
       <CollectionCard/>
       <CollectionCard/>
       <CollectionCard/>
-      </CollectionWarapper>
+      </CollectionWarapper> */}
       {/* <AnimeCardsCarousel /> */}
       {/* <Popular /> */}
     </div>
