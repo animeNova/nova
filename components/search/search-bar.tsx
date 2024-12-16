@@ -21,6 +21,8 @@ export default function SearchBar() {
       async function fetchData() {
           setLoading(true) 
           const result = await getSearch(searchQuery);
+          console.log(result);
+          
           setNotices(result)
           }
       
@@ -55,7 +57,7 @@ export default function SearchBar() {
                           onClick={() => {
                             setSearchQuery('');
                             setIsSearchOpen(false);
-                            router.push(`/anime/${result}`)
+                            router.push(`/anime/${result.id}`)
                           }}
                         >
                           <div className="flex items-center">

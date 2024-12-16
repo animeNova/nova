@@ -170,6 +170,6 @@ export const getSearch = async (text :string) => {
     const result = await db.select({
         id:show.id ,
         title :show.title
-    }).from(show).where(or(ilike(show.title,text),ilike(show.description,text)))
+    }).from(show).where(or(ilike(show.title,`%${text}%`),ilike(show.description,`%${text}%`)))
     return result
 }
