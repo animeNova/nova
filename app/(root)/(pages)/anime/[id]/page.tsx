@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 const page : React.FC<PageProps> =async props => {
-    const params = await props.params;
+    const params =  props.params;
     const data = await getShow(params.id)
 
     return (

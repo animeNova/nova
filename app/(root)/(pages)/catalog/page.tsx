@@ -24,7 +24,7 @@ const page = (
     return null; // This will stop rendering the page and show a 404
   }
   const {data,isLoading,refetch} = useGetShows({
-    limit : 12 ,
+    limit : 20 ,
     page :parseInt(page) ,
     orderBy : order
   })
@@ -41,7 +41,7 @@ const page = (
         <h1 className='text-3xl font-semibold uppercase'>Catalog</h1>
         <div className='flex justify-center items-center gap-2'>
         <OrderbyFilter />
-        <SidebarFilter />
+        {/* <SidebarFilter /> */}
         </div>
    
      </div>
