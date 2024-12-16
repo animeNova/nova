@@ -1,44 +1,31 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-
-import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
+import { useEffect, useState } from "react"
+import useDebounce from "@/hooks/useDebounce";
+import { getSearch } from "@/app/(root)/actions/shows/show";
+import { useRouter } from "next/navigation";
 
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-  } from "@/components/ui/command"
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@/components/ui/popover"
-import { useState } from "react"
-
-const mockSearchResults = [
-    { id: 1, title: 'Dashboard', url: '/dashboard' },
-    { id: 2, title: 'Analytics', url: '/analytics' },
-    { id: 3, title: 'Settings', url: '/settings' },
-    { id: 4, title: 'Profile', url: '/profile' },
-  ];
   
 export default function SearchBar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [loading , setLoading] = useState(false)
+    const [notices,setNotices] = useState<{id:string;title:string}[]>([])
     const [searchQuery, setSearchQuery] = useState('');
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter()
+    const debouncedSearch = useDebounce(searchQuery , 500)
+    useEffect(() => {
+      // search the api
   
-    const filteredResults = mockSearchResults.filter(item =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      async function fetchData() {
+          setLoading(true) 
+          const result = await getSearch(searchQuery);
+          setNotices(result)
+          }
+      
+          if(debouncedSearch) fetchData()
+    },[debouncedSearch])
   return (
   <>
         {/* Search Bar */}
@@ -60,14 +47,15 @@ export default function SearchBar() {
         {isSearchOpen && searchQuery && (
                 <div className="absolute mt-1 w-full bg-background rounded-md shadow-lg border">
                   <ul className="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                    {filteredResults.length > 0 ? (
-                      filteredResults.map((result) => (
+                    {notices.length > 0 ? (
+                      notices.map((result) => (
                         <li
                           key={result.id}
                           className="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-secondary"
                           onClick={() => {
                             setSearchQuery('');
                             setIsSearchOpen(false);
+                            router.push(`/anime/${result.id}`)
                           }}
                         >
                           <div className="flex items-center">
