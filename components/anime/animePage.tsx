@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Button } from '../ui/button'
 import { Bookmark, Check, Eye, Play, Plus, Star } from 'lucide-react'
@@ -73,16 +74,26 @@ interface AnimePageProps {
 const AnimePage : React.FC<AnimePageProps> = ({
     data
 }) => {
+    const handleRedirect = () => {
+        const youtubeUrl = data.trailer!
+        window.open(youtubeUrl, '_blank', 'noopener,noreferrer')
+      }
   return (
     <div className='space-y-8'>
     <div className="w-full h-[40vh]  relative " >
     <div className="aspect-video h-full w-full rounded-md" >
     <video src={data.video} autoPlay loop muted playsInline className="w-full h-full object-cover rounded-md" />
     </div>
-  
-    <div className='absolute bottom-4 right-4'>
-        <Button variant={'secondary'} className='text-lg'><Play/> Watch Trailer</Button>
-     </div>
+    {
+        data.trailer && (
+            <div className='absolute bottom-4 right-4'>
+            <Button variant={'secondary'} className='text-lg'
+            onClick={handleRedirect}
+            ><Play/> Watch Trailer</Button>
+         </div>
+        )
+    }
+
 
   </div>
  
@@ -90,17 +101,17 @@ const AnimePage : React.FC<AnimePageProps> = ({
 
     <div>
         <Tabs defaultValue="overview" className="w-full  space-y-5 ">
-    <TabsList className='bg-background flex md:inline-flex flex-wrap md:flex-nowrap  md:gap-5 mb-16 md:mb-4 ' >
+    <TabsList className='bg-background flex md:inline-flex flex-wrap md:flex-nowrap gap-2  md:gap-5 mb-16 md:mb-4 ' >
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="details">Details</TabsTrigger>
         <TabsTrigger value="relations">Relations</TabsTrigger>
         <TabsTrigger value="characters">Characters</TabsTrigger>
         <TabsTrigger value="staff">Staff</TabsTrigger>
-        <TabsTrigger value="recommended">Recommended</TabsTrigger>
-        <TabsTrigger value="reviews">Reviews</TabsTrigger>
+        <TabsTrigger value="recommended">Alternative</TabsTrigger>
+        {/* <TabsTrigger value="reviews">Reviews</TabsTrigger> */}
     </TabsList>
     <TabsContent value="overview" className='w-full'>
-    <div className='md:mx-4 flex justify-center md:justify-start items-center gap-7 w-full flex-wrap md:flex-nowrap'>
+    <div className='md:mx-4 flex justify-center md:justify-start items-center gap-7 w-full flex-wrap md:flex-nowrap pt-8'>
         {/* Poster */}
         <div>
             <Image src={data.image} width={1000} height={1000} className='rounded-md h-[350px] w-[240px] md:h-[400px] md:w-[350px]' alt='' />
@@ -108,7 +119,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
         
         <div className='space-y-7 w-full'>
             {/* title/rating */}
-            <div className='flex gap-3 justify-center md:justify-start items-center md:text-start'>
+            <div className='flex-col flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
                 <div className='text-center '>
                     <h1 className='text-4xl md:text-7xl font-bold'>{data.title}</h1>
                     
@@ -118,7 +129,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
                 </div>
             </div>
             {/* Functions */}
-            <div className='flex justify-center md:justify-between items-center w-full flex-wrap gap-4'>
+            {/* <div className='flex justify-center md:justify-between items-center w-full flex-wrap gap-4'>
                 <div className='flex justify-start items-center gap-4 mx-3'>
                     <Button variant={'secondary'} className='p-4 md:text-lg '>
                         <Eye size={30} />
@@ -139,7 +150,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
                         Add to Collection
                         </Button>
                 </div>
-            </div>
+            </div> */}
         </div>
     </div>
     </TabsContent>

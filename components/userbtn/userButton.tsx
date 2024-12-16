@@ -34,14 +34,14 @@ const UserButton : React.FC<UserButtonProps> = ({image,name}) => {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup className='space-y-2'>
-        <DropdownMenuItem className='cursor-pointer'>
+        {/* <DropdownMenuItem className='cursor-pointer'>
             Profile
             
           </DropdownMenuItem>
           <DropdownMenuItem className='cursor-pointer'>
             Edit account
            
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem>
            <Button onClick={async () => await signOut()} variant={'destructive'} className='w-full'>Logout</Button>
            

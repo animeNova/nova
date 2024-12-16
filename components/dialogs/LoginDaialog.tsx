@@ -37,10 +37,10 @@ export function LoginDialog() {
             <FaGoogle size={30} />
             <h2>Continue with Google</h2>
             </Button>
-            <Button onClick={() => siginIn('discord')} className="dark:bg-white dark:text-black/90 w-[280px]  font-semibold text-lg gap-2 flex items-center p-6">
+            {/* <Button onClick={() => siginIn('discord')} className="dark:bg-white dark:text-black/90 w-[280px]  font-semibold text-lg gap-2 flex items-center p-6">
             <FaDiscord size={30} />
             <h2>Continue with Discord</h2>
-            </Button>
+            </Button> */}
             <Button onClick={() => siginIn('github')} className="dark:bg-white dark:text-black/90 w-[280px]  font-semibold text-lg gap-2 flex items-center p-6">
             <FaGithub size={30} />
             <h2>Continue with Github</h2>
