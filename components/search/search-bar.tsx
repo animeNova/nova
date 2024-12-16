@@ -55,7 +55,7 @@ export default function SearchBar() {
                           onClick={() => {
                             setSearchQuery('');
                             setIsSearchOpen(false);
-                            router.push(`/anime/${result.id}`)
+                            router.push(`/anime/${result}`)
                           }}
                         >
                           <div className="flex items-center">

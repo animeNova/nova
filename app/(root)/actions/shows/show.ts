@@ -3,7 +3,7 @@
 import { QueryPorps } from "@/app/(admin)/types";
 import { db } from "@/drizzle";
 import { show } from "@/drizzle/db/schema";
-import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne } from "drizzle-orm";
+import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike } from "drizzle-orm";
 
 
 export const getShows = async (query : QueryPorps) => {
@@ -164,4 +164,12 @@ export const getBestOfYear = async () => {
         orderBy : (_field,{desc}) => [desc(_field.airing) , desc(_field.rating)]
     })
     return shows;
+}
+
+export const getSearch = async (text :string) => {
+    const result = await db.select({
+        id:show.id ,
+        title :show.title
+    }).from(show).where(or(ilike(show.title,text),ilike(show.description,text)))
+    return result
 }
