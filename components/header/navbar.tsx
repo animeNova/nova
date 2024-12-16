@@ -15,34 +15,10 @@ import { Button } from '../ui/button'
 import SearchBar from '../search/search-bar'
 
 
-const searchAPI = async (query: string) => {
-  await new Promise(resolve => setTimeout(resolve, 300))
-  
-  const suggestions = [
-    "react tutorial",
-    "nextjs 13",
-    "tailwind css",
-    "shadcn ui",
-    "typescript basics",
-    "web development 2023",
-    "javascript async await",
-    "react hooks explained",
-  ]
-  
-  return suggestions.filter(item => 
-    item.toLowerCase().includes(query.toLowerCase())
-  )
-}
-
 const Navbar = () => {
-
   const path = usePathname()
   const {data,isPending} = useSession();
   const router = useRouter()
-
-
-
-
   return (
     <header>
     <nav className="fixed top-0 left-0 right-0 bg-background border-b  z-50">
