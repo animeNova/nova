@@ -1,30 +1,30 @@
 "use client";
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible,CollapsibleTrigger ,CollapsibleContent} from '@/components/ui/collapsible';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { MultiSelect } from '@/components/ui/multi-select';
+import { MultiSelectV1 } from '@/components/ui/multi-select-v1-';
+import { Popover, PopoverContent } from '@/components/ui/popover';
 import { useGetGenres } from '@/hooks/useGetGenres';
-import { useGenresStore } from '@/store/useGenreStore';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import { cn } from '@/lib/utils';
+import { useGenreStore } from '@/store/useGenreStore';
+import { PopoverTrigger } from '@radix-ui/react-popover';
+import { Check, ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import React, { useState } from 'react'
 
 
 
 const GenreFilter = () => {
-    const searchParams = useSearchParams()
     const [isOpen, setIsOpen] =useState(true)
-    const { genres, setGenre,mergeGenres } = useGenresStore();
 
-    const categorys = useGetGenres();
-    const handleCategoryChange = (categoryId: string) => {
-        setGenre(categoryId)
-    }
-      useEffect(() => {
-        const genresFromParams = searchParams.get('categories');
-        if (genresFromParams) {
-          const parsedGenres = genresFromParams.split(','); 
-          mergeGenres(parsedGenres)
-        }
-      }, [searchParams]); 
+    const { genres: selectedGenres, setGenres } = useGenreStore();
+
+    const {data,isLoading} = useGetGenres();
+
+   if(isLoading){
+    return <p>Loading...</p>
+   }
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
     <CollapsibleTrigger className="flex items-center justify-between w-full">
@@ -32,21 +32,16 @@ const GenreFilter = () => {
       {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
     </CollapsibleTrigger>
     <CollapsibleContent className="mt-2 space-y-2">
-      {categorys?.data?.map((category) => (
-        <div key={category.id} className="flex items-center space-x-2">
-          <Checkbox
-            id={`category-${category.title}`}
-            checked={genres.includes(category.title)}
-            onCheckedChange={() => handleCategoryChange(category.title)}
-          />
-          <label
-            htmlFor={`category-${category.title}`}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {category.title}
-          </label>
-        </div>
-      ))}
+    <MultiSelect options={data?.map((cat) => ({
+      value : cat.id ,
+      label : cat.title
+    }))!} defaultValue={selectedGenres.map((genres) => ({
+      value : genres.id ,
+      label : genres.title
+    }))} onChange={(value) => setGenres(value.map((gen) => ({
+      id : gen.value, 
+      title : gen.label
+    })))}  onSearch={() => {} }/>
     </CollapsibleContent>
   </Collapsible>
 

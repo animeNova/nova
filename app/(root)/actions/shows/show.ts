@@ -2,31 +2,47 @@
 
 import { QueryPorps } from "@/app/(admin)/types";
 import { db } from "@/drizzle";
-import { show } from "@/drizzle/db/schema";
-import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne } from "drizzle-orm";
+import { genre, show, showToGenre } from "@/drizzle/db/schema";
+import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, inArray, or, ilike } from "drizzle-orm";
+import { setTimeout } from "timers/promises";
 
 
 export const getShows = async (query : QueryPorps) => {
-    const {limit= 12,orderBy ='asc',page =1} = query;
- 
+    const {limit= 12,orderBy ='asc',page =1,season,genres} = query;
+    const genreIds =(genres ?? []).map((obj) => obj.id);
     const offset = (page - 1) * limit;
     const totalshowsResult  = await db.select({count: count() }).from(show);
+    console.log(genreIds);
+    
     const result = await db.select({
         id : show.id ,
         title : show.title ,
         airing : show.airing ,
         image : show.image ,
         video : show.video
-    }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at)).offset(offset).limit(limit)
-    const totalshows = totalshowsResult[0].count;
+    }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at))
+    .leftJoin(showToGenre, eq(show.id, showToGenre.showId))
+    .where(and(
+        season ? eq(show.season , season) : undefined ,
+        genreIds.length > 0 ? inArray(showToGenre.genreId, genreIds) : undefined
+    ) )
+    .offset(offset)
+    
 
+    const totalshows = totalshowsResult[0].count;
+    const uniqueShows = Object.values(
+        result.reduce((acc, show) => {
+          acc[show.id] = show;
+          return acc;
+        }, {} as Record<string, typeof result[0]>)
+      );
     // Calculate if there's a next page
     const hasNextPage = page * limit < totalshows;
     return {
         totalShows : totalshows ,
         currentpage : Number(page) ,
         hasNextPage,
-        result,
+        result : uniqueShows,
         totalPages: Math.ceil(totalshows / limit),
     }
 }
@@ -164,4 +180,12 @@ export const getBestOfYear = async () => {
         orderBy : (_field,{desc}) => [desc(_field.airing) , desc(_field.rating)]
     })
     return shows;
+}
+
+export const getSearch = async (text :string) => {
+    const result = await db.select({
+        id:show.id ,
+        title :show.title
+    }).from(show).where(or(ilike(show.title,`%${text}%`),ilike(show.description,`%${text}%`)))
+    return result;
 }

@@ -12,14 +12,14 @@ export const SideBarLinks = [
         href :"/catalog",
         icon : <List size={25} />
     } ,
-    {
-        label : "News",
-        href : '/news',
-        icon : <PiPaperPlaneTilt size={25} />
-    } ,
-    {
-        label : "Collections",
-        href : "/collections",
-        icon  :<Library size={25} />
-    }
+    // {
+    //     label : "News",
+    //     href : '/news',
+    //     icon : <PiPaperPlaneTilt size={25} />
+    // } ,
+    // {
+    //     label : "Collections",
+    //     href : "/collections",
+    //     icon  :<Library size={25} />
+    // }
 ]

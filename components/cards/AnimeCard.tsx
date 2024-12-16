@@ -28,7 +28,7 @@ const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
  
     <div 
   
-    className='w-[180px] h-[260px] md:w-[220px] md:h-[300px] rounded-[10px] relative  cursor-pointer hover:shadow-[0_0_30px_rgba(167,139,250,0.9)]'
+    className='w-[160px] h-[240px] md:w-[220px] md:h-[300px] rounded-[10px] relative  cursor-pointer hover:shadow-[0_0_30px_rgba(167,139,250,0.9)]'
     onMouseEnter={() => setIsHovered(true)}
     onMouseLeave={() => setIsHovered(false)}
     > 

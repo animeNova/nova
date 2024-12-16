@@ -12,15 +12,15 @@ const Recommended =() => {
   return (
     <div className='flex justify-start items-center gap-2 flex-wrap'>
       {
-        isLoading && (
+        isLoading ? (
           <CardSkeleton count={7} />
+        ) : (
+          data?.map((show) => (
+            <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} key={show.id} />
+        ))
         )
       }
-      {
-        data?.map((show) => (
-            <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} />
-        ))
-      }
+     
     </div>
   )
 }

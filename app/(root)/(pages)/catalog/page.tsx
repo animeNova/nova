@@ -8,30 +8,21 @@ import Wrapper from './wrapper';
 import { useGetShows } from '@/hooks/useGetShows'
 import { notFound } from 'next/navigation';
 import CardSkeleton from '@/components/cardSkeleton/CardSkeleton';
+import useFilterValues from '@/hooks/useFilterValues';
+const page = () => {
+  const {season,genres,order} = useFilterValues()
 
-const page = (
-  props: { searchParams: Promise<{ page?: string , order : 'desc' | 'asc'}> }
-) => {
-  const searchParams = use(props.searchParams);
-
-  const {
-    page = "1",
-    order = 'desc'
-  } = searchParams;
-
-  if (parseInt(page) === 0) {
-    notFound();
-    return null; // This will stop rendering the page and show a 404
-  }
-  const {data,isLoading,refetch} = useGetShows({
+  const {data,isLoading,refetch,isFetching} = useGetShows({
     limit : 12 ,
-    page :parseInt(page) ,
-    orderBy : order
+    page :1 ,
+    orderBy : order ,
+    season : season ,
+    genres : genres
   })
 
   useEffect(() => {
-    refetch()  
-  },[page,order])
+    refetch()   
+  },[season,genres,order])
 
 
   return (
@@ -45,16 +36,20 @@ const page = (
         </div>
    
      </div>
-    {isLoading && (
+    {
+      isLoading || isFetching ? (
       <CardSkeleton count={14} />
-    )}
-    <div className='flex-wrap flex justify-center items-center gap-4 md:gap-14'>
-      {
-        data?.result.map((show) => (
-          <AnimeCard id={show.id} image={show.image} video={show.video} title={show.title} year={show.airing}  />
-        ))
-      }
-    </div>
+      ) : (
+        <div className='flex-wrap flex justify-center items-center gap-4 md:gap-14'>
+        {
+          data?.result.map((show) => (
+            <AnimeCard id={show.id} image={show.image} video={show.video} title={show.title} year={show.airing} key={show.id}  />
+          ))
+        }
+      </div>
+      )
+    }
+   
     {
       data?.hasNextPage && (
       <div>

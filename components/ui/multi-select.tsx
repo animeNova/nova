@@ -11,7 +11,7 @@ interface MultiSelectProps {
   options: Option[];
   defaultValue?: Option[];
   onChange: (selectedOptions: Option[]) => void;
-  onSearch: (query: string) => Promise<void> | null;
+  onSearch: (query: string) => Promise<void> | void;
   placeholder?: string;
   className?: string;
 }
