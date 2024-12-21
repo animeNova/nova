@@ -12,6 +12,7 @@ import {
   SheetContent,
   SheetHeader, 
   SheetTrigger,
+  SheetTitle
 } from "@/components/ui/sheet"
 import { ChevronDown, ChevronUp, Filter } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
@@ -24,27 +25,7 @@ import SeasonFilter from "./components/season"
 
 
 export default function SidebarFilter() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const {genres,season} = useFilterValues()
 
-  const updateQueryParams = () => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (genres.length > 0) {
-      params.set("categories", genres.join(","))
-    } else {
-      params.delete("categories")
-    }
-    if (season && season.length > 0) {
-      params.set("season", season)
-    } else {
-      params.delete("season")
-    }
-    router.push(`?${params.toString()}`)
-  }
-
-
- 
   return (
     <Suspense>
     <Sheet>
@@ -55,16 +36,13 @@ export default function SidebarFilter() {
       </SheetTrigger>
       <SheetContent side={'left'}>
         <SheetHeader>
-        <h2 className="text-xl font-semibold mb-4">Filters</h2>
+          <SheetTitle className="text-xl font-semibold mb-4"> Filters
+          </SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-full">
         <div className="p-4 space-y-4">
           <GenreFilter />
           <SeasonFilter />
-
-          <Button onClick={updateQueryParams} className="w-full">
-            Apply Filters
-          </Button>
           </div>
         </ScrollArea>
       </SheetContent>

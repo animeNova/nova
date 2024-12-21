@@ -2,12 +2,12 @@
 
 import { QueryPorps } from "@/app/(admin)/types";
 import { db } from "@/drizzle";
-import { show } from "@/drizzle/db/schema";
-import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike } from "drizzle-orm";
+import { genre, show, showToGenre } from "@/drizzle/db/schema";
+import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike, inArray } from "drizzle-orm";
 
 
 export const getShows = async (query : QueryPorps) => {
-    const {limit= 12,orderBy ='asc',page =1} = query;
+    const {limit= 12,orderBy ='asc',page =1,season,genres} = query;
  
     const offset = (page - 1) * limit;
     const totalshowsResult  = await db.select({count: count() }).from(show);
@@ -17,16 +17,30 @@ export const getShows = async (query : QueryPorps) => {
         airing : show.airing ,
         image : show.image ,
         video : show.video
-    }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at)).offset(offset).limit(limit)
+    }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at))
+    .leftJoin(showToGenre,eq(show.id,showToGenre.showId))
+    .leftJoin(genre,eq(genre.id,showToGenre.genreId))
+    .where(and(
+        season ? eq(show.season,season) : undefined ,
+        genres!.length > 0 ? inArray(showToGenre.genreId,genres!) : undefined
+    ))
+    .offset(offset).limit(limit)
     const totalshows = totalshowsResult[0].count;
+
 
     // Calculate if there's a next page
     const hasNextPage = page * limit < totalshows;
+    const uniqueShows = Object.values(
+        result.reduce((acc, show) => {
+          acc[show.id] = show;
+          return acc;
+        }, {} as Record<string, typeof result[0]>)
+      );
     return {
         totalShows : totalshows ,
         currentpage : Number(page) ,
         hasNextPage,
-        result,
+        result : uniqueShows,
         totalPages: Math.ceil(totalshows / limit),
     }
 }
@@ -169,7 +183,8 @@ export const getBestOfYear = async () => {
 export const getSearch = async (text :string) => {
     const result = await db.select({
         id:show.id ,
-        title :show.title
+        title :show.title ,
+        image : show.image
     }).from(show).where(or(ilike(show.title,`%${text}%`),ilike(show.description,`%${text}%`)))
     return result
 }
