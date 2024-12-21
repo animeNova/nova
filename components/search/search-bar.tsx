@@ -6,12 +6,13 @@ import { useEffect, useState } from "react"
 import useDebounce from "@/hooks/useDebounce";
 import { getSearch } from "@/app/(root)/actions/shows/show";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
   
 export default function SearchBar() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [loading , setLoading] = useState(false)
-    const [notices,setNotices] = useState<{id:string;title:string}[]>([])
+    const [notices,setNotices] = useState<{id:string;title:string;image:string}[]>([])
     const [searchQuery, setSearchQuery] = useState('');
     const router = useRouter()
     const debouncedSearch = useDebounce(searchQuery , 500)
@@ -60,7 +61,8 @@ export default function SearchBar() {
                             router.push(`/anime/${result.id}`)
                           }}
                         >
-                          <div className="flex items-center">
+                          <div className="flex justify-start items-center">
+                            {/* <Image src={result.image} width={500} height={500} className="w-6 h-6 rounded-full object-cover" alt={result.title} />  */}
                             <span className="ml-3 block font-medium truncate">{result.title}</span>
                           </div>
                         </li>

@@ -17,22 +17,10 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { ListFilter } from 'lucide-react'
+import { useOrderStore } from '@/store/useOrderStore';
 
 const OrderbyFilter = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [orderBy, setOrderBy] = React.useState<string>(
-    searchParams.get("order") || ''
-  )
-  const onClick = (order :string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set("order", order)
-    router.push(`?${params.toString()}`)
-  }
-  useEffect(() =>{
-    console.log(orderBy);
-    
-  },[])
+  const {setOrder} = useOrderStore()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,10 +32,10 @@ const OrderbyFilter = () => {
                 OrderBy
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => onClick('desc')}>
+            <DropdownMenuItem onClick={() => setOrder('desc')}>
                 latest
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onClick('asc')}>
+            <DropdownMenuItem onClick={() => setOrder('asc')}>
                 oldest
             </DropdownMenuItem>
         </DropdownMenuGroup>
