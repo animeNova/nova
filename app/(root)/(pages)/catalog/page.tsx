@@ -8,16 +8,25 @@ import Wrapper from './wrapper';
 import { useGetShows } from '@/hooks/useGetShows'
 import { notFound } from 'next/navigation';
 import CardSkeleton from '@/components/cardSkeleton/CardSkeleton';
-import useFilterValues from '@/hooks/useFilterValues';
-const page = () => {
-  const {season,genres,order} = useFilterValues()
 
-  const {data,isLoading,refetch,isFetching} = useGetShows({
+const page = (
+  props: { searchParams: Promise<{ page?: string , order : 'desc' | 'asc'}> }
+) => {
+  const searchParams = use(props.searchParams);
+
+  const {
+    page = "1",
+    order = 'desc'
+  } = searchParams;
+
+  if (parseInt(page) === 0) {
+    notFound();
+    return null; // This will stop rendering the page and show a 404
+  }
+  const {data,isLoading,refetch} = useGetShows({
     limit : 12 ,
-    page :1 ,
-    orderBy : order ,
-    season : season ,
-    genres : genres
+    page :parseInt(page) ,
+    orderBy : order
   })
 
   useEffect(() => {
@@ -32,7 +41,7 @@ const page = () => {
         <h1 className='text-3xl font-semibold uppercase'>Catalog</h1>
         <div className='flex justify-center items-center gap-2'>
         <OrderbyFilter />
-        <SidebarFilter />
+        {/* <SidebarFilter /> */}
         </div>
    
      </div>

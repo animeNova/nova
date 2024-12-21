@@ -70,7 +70,7 @@ const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
       </Link>
       
       <p className={cn('text-sm text-white/70  ') }>
-    <Link href={`/year/${year?.slice(0,4)}`} className='transition hover:text-white'>
+    <Link href={'#'} className='transition hover:text-white'>
     {
       year?.slice(0,4)
     }
@@ -79,7 +79,7 @@ const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
     </p>
     </div>
     </div>
-   
+  //  `/year/${year?.slice(0,4)}`
   )
 }
 

@@ -21,6 +21,9 @@ export default function SearchBar() {
       async function fetchData() {
           setLoading(true) 
           const result = await getSearch(searchQuery);
+          console.log(result);
+          
+
           setNotices(result)
           }
       
