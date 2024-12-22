@@ -12,6 +12,7 @@ import StaffCard from '../staff/StaffCard'
 import Recommended from '@/app/(root)/(pages)/anime/[id]/components/recommended'
 import Link from 'next/link'
 import Relations from '@/app/(root)/(pages)/anime/[id]/components/relation'
+import TrailerBtn from '../ui/trailer-btn'
 
 
 interface AnimePageProps {
@@ -74,10 +75,7 @@ interface AnimePageProps {
 const AnimePage : React.FC<AnimePageProps> = ({
     data
 }) => {
-    const handleRedirect = () => {
-        const youtubeUrl = data.trailer!
-        window.open(youtubeUrl, '_blank', 'noopener,noreferrer')
-      }
+  
   return (
     <div className='space-y-8'>
     <div className="w-full h-[40vh]  relative " >
@@ -86,11 +84,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
     </div>
     {
         data.trailer && (
-            <div className='absolute bottom-4 right-4'>
-            <Button variant={'secondary'} className='text-lg'
-            onClick={handleRedirect}
-            ><Play/> Watch Trailer</Button>
-         </div>
+            <TrailerBtn link={data.trailer} />
         )
     }
 

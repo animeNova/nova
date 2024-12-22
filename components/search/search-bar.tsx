@@ -40,7 +40,7 @@ export default function SearchBar() {
                 </div>
                 <input
                   type="text"
-                  className="block w-full pl-10 pr-3 py-2 bg-background border rounded-md  outline-none leading-5 sm:text-sm transition duration-150 ease-in-out"
+                  className="block w-full pl-10 pr-3 py-2 bg-background border dark:border border-foreground/10 rounded-md  outline-none leading-5 sm:text-sm transition duration-150 ease-in-out"
                   placeholder="Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}

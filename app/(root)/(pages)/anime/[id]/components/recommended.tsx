@@ -13,7 +13,7 @@ const Recommended =() => {
     <div className='flex justify-start items-center gap-2 flex-wrap'>
       {
         isLoading && (
-          <CardSkeleton count={7} />
+          <CardSkeleton count={5} />
         )
       }
       {
