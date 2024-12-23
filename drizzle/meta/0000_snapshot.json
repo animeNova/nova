@@ -1,5 +1,5 @@
 {
-  "id": "9e1e0e49-345c-40b5-9e51-85f8c6fd4b19",
+  "id": "afd148d5-2e82-4a73-8c27-e45a437b8354",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -13,7 +13,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'ohDIbgq8lFvKFGp9zujVW'"
+          "default": "'4FMcnmbvRf3YsJCBtBXp2'"
         },
         "accountId": {
           "name": "accountId",
@@ -355,6 +355,76 @@
         }
       }
     },
+    "public.favourite": {
+      "name": "favourite",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "showId": {
+          "name": "showId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "favourite_showId_show_id_fk": {
+          "name": "favourite_showId_show_id_fk",
+          "tableFrom": "favourite",
+          "tableTo": "show",
+          "columnsFrom": [
+            "showId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "favourite_userId_user_id_fk": {
+          "name": "favourite_userId_user_id_fk",
+          "tableFrom": "favourite",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.genre": {
       "name": "genre",
       "schema": "",
@@ -454,7 +524,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'bvqsmWNk3m-M97JiVLKQG'"
+          "default": "'fK9LSITk4-A4Ckt2VlFMI'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -592,7 +662,7 @@
         },
         "embedding": {
           "name": "embedding",
-          "type": "vector(1024)",
+          "type": "vector(512)",
           "primaryKey": false,
           "notNull": false
         },
@@ -839,7 +909,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'ri7HGXnlUWyhDWuLH-XC4'"
+          "default": "'Mcb0jo-xWaE9ouG517dob'"
         },
         "name": {
           "name": "name",
@@ -1048,7 +1118,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'TiiLUS9damQKtSulyS6Tl'"
+          "default": "'2mOJTRDl4DcUkRzKdKdod'"
         },
         "identifier": {
           "name": "identifier",
@@ -1071,6 +1141,146 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.watched": {
+      "name": "watched",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "showId": {
+          "name": "showId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "watched_showId_show_id_fk": {
+          "name": "watched_showId_show_id_fk",
+          "tableFrom": "watched",
+          "tableTo": "show",
+          "columnsFrom": [
+            "showId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "watched_userId_user_id_fk": {
+          "name": "watched_userId_user_id_fk",
+          "tableFrom": "watched",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.watching": {
+      "name": "watching",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "showId": {
+          "name": "showId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "watching_showId_show_id_fk": {
+          "name": "watching_showId_show_id_fk",
+          "tableFrom": "watching",
+          "tableTo": "show",
+          "columnsFrom": [
+            "showId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "watching_userId_user_id_fk": {
+          "name": "watching_userId_user_id_fk",
+          "tableFrom": "watching",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }

@@ -12,6 +12,7 @@ import StaffCard from '../staff/StaffCard'
 import Recommended from '@/app/(root)/(pages)/anime/[id]/components/recommended'
 import Link from 'next/link'
 import Relations from '@/app/(root)/(pages)/anime/[id]/components/relation'
+import ShowFunctions from '@/app/(root)/(pages)/anime/[id]/components/functions/ShowFunctions'
 
 
 interface AnimePageProps {
@@ -113,44 +114,23 @@ const AnimePage : React.FC<AnimePageProps> = ({
     <TabsContent value="overview" className='w-full'>
     <div className='md:mx-4 flex justify-center md:justify-start items-center gap-7 w-full flex-wrap md:flex-nowrap pt-8'>
         {/* Poster */}
-        <div>
+        <div className=' relative'>
             <Image src={data.image} width={1000} height={1000} className='rounded-md h-[350px] w-[240px] md:h-[400px] md:w-[350px]' alt='' />
+            <div className='w-8 h-8 bg-primary rounded-full flex items-center justify-center font-bold absolute top-3 right-3'>
+            {data.rating}
+            </div>
         </div>
         
         <div className='space-y-7 w-full'>
             {/* title/rating */}
-            <div className='flex-col flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
+            <div className='flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
                 <div className='text-center '>
                     <h1 className='text-4xl md:text-7xl font-bold'>{data.title}</h1>
                     
                 </div>
-                <div className='w-12 h-12 bg-primary rounded-full text-center pt-2'>
-                    <p className='text-xl text-white font-bold'>{data.rating}</p> 
-                </div>
             </div>
             {/* Functions */}
-            {/* <div className='flex justify-center md:justify-between items-center w-full flex-wrap gap-4'>
-                <div className='flex justify-start items-center gap-4 mx-3'>
-                    <Button variant={'secondary'} className='p-4 md:text-lg '>
-                        <Eye size={30} />
-                        Watching
-                        </Button>
-                    <Button variant={'secondary'} className='p-4 md:text-lg'>
-                        <Bookmark size={25}/>
-                        To Watch
-                        </Button>
-                    <Button variant={'secondary'} className='p-4 md:text-lg'>
-                        <Check size={25}/>
-                        Watched
-                        </Button>
-                </div>
-                <div>
-                    <Button variant={'secondary'} className='p-4 text-lg'>
-                        <Plus />
-                        Add to Collection
-                        </Button>
-                </div>
-            </div> */}
+        <ShowFunctions />
         </div>
     </div>
     </TabsContent>

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"id" text PRIMARY KEY DEFAULT 'ohDIbgq8lFvKFGp9zujVW' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT '4FMcnmbvRf3YsJCBtBXp2' NOT NULL,
 	"accountId" text NOT NULL,
 	"providerId" text NOT NULL,
 	"userId" text NOT NULL,
@@ -53,6 +53,14 @@ CREATE TABLE IF NOT EXISTS "creator" (
 	CONSTRAINT "creator_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "favourite" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"showId" uuid,
+	"userId" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "genre" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" text NOT NULL,
@@ -70,7 +78,7 @@ CREATE TABLE IF NOT EXISTS "language" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
-	"id" text PRIMARY KEY DEFAULT 'bvqsmWNk3m-M97JiVLKQG' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'fK9LSITk4-A4Ckt2VlFMI' NOT NULL,
 	"expiresAt" timestamp NOT NULL,
 	"ipAddress" text,
 	"userAgent" text,
@@ -92,7 +100,7 @@ CREATE TABLE IF NOT EXISTS "show" (
 	"image" text NOT NULL,
 	"backgroundImage" text NOT NULL,
 	"images" text[] DEFAULT '{}'::text[],
-	"embedding" vector(1024),
+	"embedding" vector(512),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"languageId" uuid,
@@ -132,7 +140,7 @@ CREATE TABLE IF NOT EXISTS "studio" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY DEFAULT 'ri7HGXnlUWyhDWuLH-XC4' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'Mcb0jo-xWaE9ouG517dob' NOT NULL,
 	"name" text NOT NULL,
 	"password" text,
 	"email" text NOT NULL,
@@ -162,10 +170,26 @@ CREATE TABLE IF NOT EXISTS "user_preferences" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verification" (
-	"id" text PRIMARY KEY DEFAULT 'TiiLUS9damQKtSulyS6Tl' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT '2mOJTRDl4DcUkRzKdKdod' NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
 	"expiresAt" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "watched" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"showId" uuid,
+	"userId" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "watching" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"showId" uuid,
+	"userId" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -182,6 +206,18 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "charachter" ADD CONSTRAINT "charachter_castId_cast_id_fk" FOREIGN KEY ("castId") REFERENCES "public"."cast"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "favourite" ADD CONSTRAINT "favourite_showId_show_id_fk" FOREIGN KEY ("showId") REFERENCES "public"."show"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "favourite" ADD CONSTRAINT "favourite_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -218,6 +254,30 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "user_preferences" ADD CONSTRAINT "user_preferences_genre_id_genre_id_fk" FOREIGN KEY ("genre_id") REFERENCES "public"."genre"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "watched" ADD CONSTRAINT "watched_showId_show_id_fk" FOREIGN KEY ("showId") REFERENCES "public"."show"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "watched" ADD CONSTRAINT "watched_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "watching" ADD CONSTRAINT "watching_showId_show_id_fk" FOREIGN KEY ("showId") REFERENCES "public"."show"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "watching" ADD CONSTRAINT "watching_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

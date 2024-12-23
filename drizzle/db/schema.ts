@@ -142,10 +142,38 @@ export const collection = pgTable("collection" , {
   userId : text("userId").notNull()
 })
 
+export const watched = pgTable("watched" , {
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
+  showId : uuid("showId").references(() => show.id , {onDelete : 'cascade'}),
+  userId : text("userId").references(() => user.id , {onDelete : 'cascade'}),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(),
+})
+export const favourite = pgTable("favourite" , {
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
+  showId : uuid("showId").references(() => show.id , {onDelete : 'cascade'}),
+  userId : text("userId").references(() => user.id , {onDelete : 'cascade'}),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(),
+})
+export const watching = pgTable("watching" , {
+  id:uuid('id').defaultRandom()// Auto-generate a UUID
+  .primaryKey(),
+  showId : uuid("showId").references(() => show.id , {onDelete : 'cascade'}),
+  userId : text("userId").references(() => user.id , {onDelete : 'cascade'}),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(),
+})
+
 
 
 export const userRelations = relations(user , ({many}) => ({
-  collections : many(collection)
+  collections : many(collection) ,
+  favourite : many(favourite) ,
+  watching : many(watching) ,
+  watched :many(watched)
 }))
 
 export const collectionRelations = relations(collection,({one,many}) =>({
