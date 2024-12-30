@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import { Button } from '../ui/button'
-import { Bookmark, Check, Eye, Play, Plus, Star } from 'lucide-react'
 import Image from 'next/image'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import Details from '../details/details'
@@ -12,7 +10,7 @@ import StaffCard from '../staff/StaffCard'
 import Recommended from '@/app/(root)/(pages)/anime/[id]/components/recommended'
 import Link from 'next/link'
 import Relations from '@/app/(root)/(pages)/anime/[id]/components/relation'
-import ShowFunctions from '@/app/(root)/(pages)/anime/[id]/components/functions/ShowFunctions'
+import TrailerBtn from '../ui/trailer-btn'
 
 
 interface AnimePageProps {
@@ -75,10 +73,7 @@ interface AnimePageProps {
 const AnimePage : React.FC<AnimePageProps> = ({
     data
 }) => {
-    const handleRedirect = () => {
-        const youtubeUrl = data.trailer!
-        window.open(youtubeUrl, '_blank', 'noopener,noreferrer')
-      }
+  
   return (
     <div className='space-y-8'>
     <div className="w-full h-[40vh]  relative " >
@@ -87,11 +82,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
     </div>
     {
         data.trailer && (
-            <div className='absolute bottom-4 right-4'>
-            <Button variant={'secondary'} className='text-lg'
-            onClick={handleRedirect}
-            ><Play/> Watch Trailer</Button>
-         </div>
+            <TrailerBtn link={data.trailer} />
         )
     }
 
@@ -123,14 +114,14 @@ const AnimePage : React.FC<AnimePageProps> = ({
         
         <div className='space-y-7 w-full'>
             {/* title/rating */}
-            <div className='flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
+            <div className='flex-col flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
                 <div className='text-center '>
                     <h1 className='text-4xl md:text-7xl font-bold'>{data.title}</h1>
                     
                 </div>
             </div>
             {/* Functions */}
-        <ShowFunctions />
+        {/* <ShowFunctions /> */}
         </div>
     </div>
     </TabsContent>

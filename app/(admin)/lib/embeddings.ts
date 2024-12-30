@@ -1,18 +1,15 @@
 "use server";
 
-import ollama from "ollama";
-
+import * as use from '@tensorflow-models/universal-sentence-encoder';
+import '@tensorflow/tfjs'; // Import TensorFlow.js
 
  
 export async function generateEmbeddings(text:string) {
     if (!text) {
       throw new Error("Text cannot be empty");
     }
-  
-    const embeddings = await ollama.embeddings({
-      model:"snowflake-arctic-embed" ,
-      prompt:text
-    })
-    const embeddingsArray = embeddings.embedding;
-    return embeddingsArray;
+    const model = await use.load();
+
+    const embeddings = await model.embed(text);
+    return embeddings.array()
 }

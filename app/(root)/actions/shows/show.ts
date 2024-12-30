@@ -18,12 +18,8 @@ export const getShows = async (query : QueryPorps) => {
         image : show.image ,
         video : show.video
     }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at))
-    .leftJoin(showToGenre,eq(show.id,showToGenre.showId))
-    .leftJoin(genre,eq(genre.id,showToGenre.genreId))
     .where(and(
-        season ? eq(show.season,season) : undefined ,
-        genres!.length > 0 ? inArray(showToGenre.genreId,genres!) : undefined
-    ))
+        season ? eq(show.season,season) : undefined ,    ))
     .offset(offset).limit(limit)
     const totalshows = totalshowsResult[0].count;
 
@@ -53,10 +49,8 @@ export const getShow = async (id : string) => {
             title:true,
             relativeTitle:true,
             airing:true,
-            backgroundImage:true,
             description:true,
             image:true,
-            images:true,
             rating:true,
             season:true,
             status:true,
@@ -188,3 +182,19 @@ export const getSearch = async (text :string) => {
     }).from(show).where(or(ilike(show.title,`%${text}%`),ilike(show.description,`%${text}%`)))
     return result
 }
+
+export const getPopular = async () => {
+    const shows = await db.query.show.findMany({
+        columns : {
+            id : true,
+            title :true,
+            image:true,
+            video:true,
+            airing :true
+        } ,
+        orderBy : (_field,{desc}) => [desc(_field.rating)]
+    })
+    return shows;
+}
+
+

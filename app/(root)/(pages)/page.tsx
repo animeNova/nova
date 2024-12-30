@@ -1,6 +1,6 @@
 "use client";
-
 import Best from "@/components/(sliders)/bestOfSeason/Best";
+import Popular from "@/components/(sliders)/popularShows/popular";
 import dynamic from "next/dynamic";
 const Hero = dynamic(
   () => import('@/components/Hero/Hero'),
@@ -13,11 +13,13 @@ const Recommendation = dynamic(
 )
 
 export default function Home() { 
+
   return (
     <div className="space-y-6">
       <Hero />
       <Recommendation />
       <Best />
+      <Popular />
     </div>
   );
 }

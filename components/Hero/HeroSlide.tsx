@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button';
 import { Loader2, Pause, Play } from 'lucide-react';
 import Link from 'next/link';
+import TrailerBtn from '../ui/trailer-btn';
 interface HeroSlideProps {
   isActive : boolean,
   id:string;
@@ -65,7 +66,7 @@ const HeroSlide : React.FC<HeroSlideProps> = ({isActive = false,description,id,t
         <Button className='text-lg md:text-xl p-6'>Learn More</Button>
 
         </Link>
-      <Button className='text-lg md:text-xl p-6' variant={"secondary"}>Watch Trailer</Button>
+        <TrailerBtn link={trailer} isFixed={false} />
       </div>
       </div>
      </div>

@@ -10,7 +10,7 @@ const Relations =() => {
     const {data,isLoading} = useGetRelations(params.id)
 
     if(!data?.length){
-        return <p className='px-4 text-white/80'>No Relations Found!</p>
+        return <p className='px-4 text-foreground/80'>No Relations Found!</p>
     }
 
     
