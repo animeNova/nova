@@ -93,12 +93,10 @@ export const ShowForm: React.FC<ShowFormProps> = ({
         type :"" ,
         rating : 0, 
         image :"" ,
-        backgroundImage:"",
         languageId: "" ,
         creatorId:"",
         studioId:"",
         genreIds:[],
-        images:[],
         staffs:[] ,
         airing :new Date(),
         trailer :"",
@@ -156,17 +154,9 @@ export const ShowForm: React.FC<ShowFormProps> = ({
     form.setValue("image", "");
   }, [form]);
   const imageUrl = form.watch("image");
-  const handleUploadBgSuccess = useCallback(
-    (result: any) => {
-      form.setValue("backgroundImage", result.info.secure_url);
-    },
-    [form]
-  );
 
-  const handleRemoveBgImage = useCallback(() => {
-    form.setValue("backgroundImage", "");
-  }, [form]);
-  const bgimageUrl = form.watch("backgroundImage");
+
+
 
   useEffect(() => {
     const fetch = async () => {
@@ -586,77 +576,7 @@ export const ShowForm: React.FC<ShowFormProps> = ({
               )}
             /> 
           </div>
-          <div>
-          <FormField
-              control={form.control}
-              name="backgroundImage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Background Image</FormLabel>
-                  <FormControl>
-                    <div className="space-y-4">
-                      {bgimageUrl ? (
-                        <div className="relative w-full overflow-hidden rounded-lg border">
-                          <img
-                            src={bgimageUrl}
-                            alt="Preview"
-                            className="h-24 w-24 object-cover"
-                          />
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="icon"
-                            className="absolute right-2 top-2"
-                            onClick={handleRemoveBgImage}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <CldUploadWidget
-                          uploadPreset="z1w6dtxd"
-                          onSuccess={handleUploadBgSuccess}
-                        >
-                          {({ open }) => (
-                            <Button
-                              type="button"
-                              variant="outline"
-                              className="w-full h-[90px]"
-                              onClick={() => open()}
-                            >
-                              <ImagePlus className="mr-2 h-4 w-4" />
-                              Upload Background Image
-                            </Button>
-                          )}
-                        </CldUploadWidget>
-                      )}
-                      <input type="hidden" {...field} />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> 
-          </div>
-          <div>
-          <FormField
-      control={form.control}
-      name={'images'}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Images</FormLabel>
-          <FormControl>
-            <ImageUpload
-              maxFiles={5}
-              value={field.value}
-              onChange={field.onChange}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-          </div>
+      
           <div>
           <FormField
       control={form.control}

@@ -20,9 +20,9 @@ const StaffCard : React.FC<StaffCardProps> = ({id,job,name,image}) => {
     </div>
     <div className='absolute bottom-4 left-4 '>
       <h1 className={cn( 'text-lg font-normal transition text-white/75 hover:text-white')}>{name}</h1>
-      <p className={cn('text-sm text-white/70 ') }>
+  
     <p  className='transition hover:text-white'>{job}</p>  
-    </p>
+    
     </div>
     </div>
   )

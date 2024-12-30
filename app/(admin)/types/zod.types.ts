@@ -51,11 +51,6 @@ export const showSchema = z.object({
         message : "image is required"
 
     }),
-    backgroundImage : z.string().min(1,{
-        message : "backgroundImage is required"
-
-    }),
-    images : z.array(z.string()),
     languageId : z.string().min(1,{
         message :"language is required"
     }) ,

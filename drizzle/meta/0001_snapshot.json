@@ -1,6 +1,6 @@
 {
-  "id": "0cdfc307-4914-4bc4-92ed-35511975a07b",
-  "prevId": "9e1e0e49-345c-40b5-9e51-85f8c6fd4b19",
+  "id": "8638e6b9-561a-4cf4-8ba5-9b61d57cadf5",
+  "prevId": "d2be0e6d-dbe4-4c55-ad1e-f1a2194b6014",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -13,7 +13,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'MNi4xzT0K6u2S6CpFuay8'"
+          "default": "'ScNSO81sNx2G3CpWmeVKd'"
         },
         "accountId": {
           "name": "accountId",
@@ -454,7 +454,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'spUDqCmTyrtLZ8im5O7TK'"
+          "default": "'v6DN5vJayhMasQghhGPHf'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -576,19 +576,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
-        },
-        "backgroundImage": {
-          "name": "backgroundImage",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "images": {
-          "name": "images",
-          "type": "text[]",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::text[]"
         },
         "embedding": {
           "name": "embedding",
@@ -839,7 +826,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'vwBvEW56Lmd_IMoQRSz19'"
+          "default": "'7BgUZa9WLvk6RbFNVd3Ps'"
         },
         "name": {
           "name": "name",
@@ -1048,7 +1035,7 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "'uoZ5pxV584lbq0kQW9qGW'"
+          "default": "'1X-l72mIcJBnwclR2lOWW'"
         },
         "identifier": {
           "name": "identifier",

@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import { Button } from '../ui/button'
-import { Bookmark, Check, Eye, Play, Plus, Star } from 'lucide-react'
 import Image from 'next/image'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import Details from '../details/details'
@@ -113,7 +111,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
         
         <div className='space-y-7 w-full'>
             {/* title/rating */}
-            <div className='flex-col flex md:flex-row gap-3 justify-center md:justify-start items-center md:text-start'>
+            <div className='flex-col flex md:flex-row flex-wrap gap-5 justify-center md:justify-center items-center md:text-start'>
                 <div className='text-center '>
                     <h1 className='text-4xl md:text-7xl font-bold'>{data.title}</h1>
                     

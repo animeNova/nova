@@ -18,7 +18,7 @@ const Recommended =() => {
       }
       {
         data?.map((show) => (
-            <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} />
+            <AnimeCard key={show.id} id={show.id} image={show.image} title={show.title} video={show.video}  year={show.airing} />
         ))
       }
     </div>

@@ -115,8 +115,6 @@ export const show = pgTable("show" , {
   trailer : text("trailer"),
   rating : doublePrecision("rating").notNull(),
   image : text("image").notNull(),
-  backgroundImage : text("backgroundImage").notNull(),
-  images : text("images").array().default(sql`'{}'::text[]`) ,
   embedding : vector("embedding",{
     dimensions : 512
   }),
@@ -128,7 +126,6 @@ export const show = pgTable("show" , {
   airing : date('airing').notNull() ,
   video : text("video").default('').notNull() ,
   videoKey : text("videoKey").default('').notNull() ,
-  
 })
 export const collection = pgTable("collection" , {
   id:uuid('id').defaultRandom()// Auto-generate a UUID

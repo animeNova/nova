@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"id" text PRIMARY KEY DEFAULT 'ohDIbgq8lFvKFGp9zujVW' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'P9nMOZ-Pc6gsKWPUFBCUf' NOT NULL,
 	"accountId" text NOT NULL,
 	"providerId" text NOT NULL,
 	"userId" text NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS "language" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
-	"id" text PRIMARY KEY DEFAULT 'bvqsmWNk3m-M97JiVLKQG' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'V8RZKjx4u3-jg2-8y4Mha' NOT NULL,
 	"expiresAt" timestamp NOT NULL,
 	"ipAddress" text,
 	"userAgent" text,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS "show" (
 	"image" text NOT NULL,
 	"backgroundImage" text NOT NULL,
 	"images" text[] DEFAULT '{}'::text[],
-	"embedding" vector(1024),
+	"embedding" vector(512),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL,
 	"languageId" uuid,
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS "studio" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY DEFAULT 'ri7HGXnlUWyhDWuLH-XC4' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'nk5Z549guZERlW-UFh1JM' NOT NULL,
 	"name" text NOT NULL,
 	"password" text,
 	"email" text NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS "user_preferences" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verification" (
-	"id" text PRIMARY KEY DEFAULT 'TiiLUS9damQKtSulyS6Tl' NOT NULL,
+	"id" text PRIMARY KEY DEFAULT 'jk7ewjFj3ZyQKW9z_2djV' NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
 	"expiresAt" timestamp NOT NULL
