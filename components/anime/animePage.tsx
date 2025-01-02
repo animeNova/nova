@@ -145,7 +145,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
                     <p className='text-white/70 text-xl'>genres</p>
                     <div className='flex gap-2'>
                     {data.showGenres.map((genre) => (
-                        <Link href={`/genre/${genre.genre.title}`} key={genre.genre.id}>
+                        <Link href={`/genre/${genre.genre.id}`} key={genre.genre.id}>
                         <p className='text-white text-xl'>{genre.genre.title}</p>
                         </Link>
                     ))}
