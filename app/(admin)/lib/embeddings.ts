@@ -1,7 +1,8 @@
 "use server";
 
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import '@tensorflow/tfjs'; // Import TensorFlow.js
+
+
 
  
 export async function generateEmbeddings(text:string) {
