@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { ThemeProvider } from '../ui/theme-provider';
 import Navbar from "@/components/header/navbar";
 import {HydrationBoundary, QueryClient , QueryClientProvider} from '@tanstack/react-query'
+import { LoginDialog } from '../dialogs/LoginDaialog';
+import { SignUpDialog } from '../dialogs/SignUpDialog';
 const Provider = ({
     children
 } : {children:React.ReactNode}) => {
@@ -21,6 +23,9 @@ const Provider = ({
     {children}
     </main>
     </div>
+
+    <LoginDialog />
+    <SignUpDialog />
     </ThemeProvider>
     </QueryClientProvider>
   )

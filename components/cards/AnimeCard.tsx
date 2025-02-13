@@ -65,7 +65,7 @@ const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
 
     <div className='absolute bottom-4 left-4 '>
-      <Link href={`/anime/${id}`}>
+      <Link href={`/show/${id}`}>
       <h1 className={cn( 'text-lg font-normal transition text-white/75  hover:text-white')}>{title}</h1>
       </Link>
       

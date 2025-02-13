@@ -55,20 +55,10 @@ const items = [
     icon: Pen,
   },
   {
-    title: "Reviews",
-    url: "/admin/reviews",
-    icon: Star,
-  },
-  {
     title: "Shows",
     url: "/admin/shows",
     icon: Clapperboard,
-  },
-  {
-    title: "Collections",
-    url: "/admin/collections",
-    icon: Library,
-  },
+  }
 ]
 
 export function AppSidebar() {

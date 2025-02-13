@@ -21,12 +21,15 @@ export const auth = betterAuth({
     plugins :[
         admin({
             defaultRole :false
-        })
+        }) ,
     ] ,
     trustedOrigins: [
         process.env.NEXT_PUBLIC_URL!
     ],
     advanced :{
         useSecureCookies :false
-    }
+    } ,
+    emailAndPassword: { 
+        enabled: true, 
+      }, 
 });

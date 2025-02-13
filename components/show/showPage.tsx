@@ -7,13 +7,13 @@ import CharactersWrapper from '../character/CharactersWrapper'
 import CharacterCard from '../character/CharacterCard'
 import StaffsWrapper from '../staff/StaffsWrapper'
 import StaffCard from '../staff/StaffCard'
-import Recommended from '@/app/(root)/(pages)/anime/[id]/components/recommended'
+import Recommended from '@/app/(root)/(pages)/show/[id]/components/recommended'
 import Link from 'next/link'
-import Relations from '@/app/(root)/(pages)/anime/[id]/components/relation'
+import Relations from '@/app/(root)/(pages)/show/[id]/components/relation'
 import TrailerBtn from '../ui/trailer-btn'
 
 
-interface AnimePageProps {
+interface ShowPageProps {
     data: {
         id:string;
         title:string;
@@ -70,7 +70,7 @@ interface AnimePageProps {
 
 }
 
-const AnimePage : React.FC<AnimePageProps> = ({
+const ShowPage : React.FC<ShowPageProps> = ({
     data
 }) => {
   
@@ -82,7 +82,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
     </div>
     {
         data.trailer && (
-            <TrailerBtn link={data.trailer} />
+            <TrailerBtn isFixed link={data.trailer} />
         )
     }
 
@@ -138,7 +138,7 @@ const AnimePage : React.FC<AnimePageProps> = ({
                     <Details name='Season' value={data.season} />
                     <Details name='aired' value={data.airing} />
                     <Details name='relativeTitle' value={data.relativeTitle}/>
-                    <Details name='creator' value={data.creator.name} />
+                    <Details name='creator' link={`/creator/${data.creator.id}`} value={data.creator.name} />
                     <Details name='studio' value={data.studio.title} />
                     <Details name='Language' value={data.lang.title} />
                     <div className='flex gap-5'>
@@ -185,11 +185,10 @@ const AnimePage : React.FC<AnimePageProps> = ({
     <TabsContent value="recommended">
       <Recommended />
     </TabsContent>
-    <TabsContent value="reviews">Change your password here.</TabsContent>
     </Tabs>
     </div>
     </div>
   )
 }
 
-export default AnimePage
+export default ShowPage

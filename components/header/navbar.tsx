@@ -13,12 +13,14 @@ import { useSession } from '@/app/lib/auth/client'
 import UserButton from '../userbtn/userButton'
 import { Button } from '../ui/button'
 import SearchBar from '../search/search-bar'
+import useLoginStore from '@/store/useLoginDialog'
 
 
 const Navbar = () => {
   const path = usePathname()
   const {data,isPending} = useSession();
   const router = useRouter()
+  const {openLogin} = useLoginStore() 
   return (
     <header>
     <nav className="fixed top-0 left-0 right-0 bg-background border-b border-b-foreground/10  z-50">
@@ -26,7 +28,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <svg className="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg onClick={() => router.push('/')} className="h-8 w-8 text-primary cursor-pointer" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M2 12h20" />
               </svg>
@@ -50,7 +52,16 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex justify-center items-center gap-2">
-            {!data?.session && !isPending ? <LoginDialog /> : null}
+            {!data?.session && !isPending ? (
+            <Button
+               variant="default"
+               className="text-sm font-semibold text-white/90"
+               onClick={() => openLogin()}
+                  >
+                
+                  Login
+          </Button>
+            ) : null}
             {data?.user?.role == "admin" && !isPending ? <Button onClick={() => router.push('/admin')}>Dashboard</Button>: null}
             {data?.session && !isPending ? <UserButton name={data.user.name} image={data.user.image} /> : null}
           <ThemeChanger />

@@ -3,6 +3,7 @@ import { createAuthClient } from "better-auth/react"
 export const {signIn,signOut,signUp,useSession,user} = createAuthClient({
     baseURL: process.env.NEXT_PUBLIC_URL ,// the base url of your auth server ,
     plugins :[
-        adminClient()
+        adminClient() ,
+        
     ]
 })

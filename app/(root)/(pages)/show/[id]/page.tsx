@@ -1,4 +1,4 @@
-import AnimePage from '@/components/anime/animePage';
+import ShowPage from '@/components/show/showPage';
 import React from 'react'
 import { getShow } from '../../../actions/shows/show';
 interface PageProps {
@@ -13,7 +13,7 @@ const page : React.FC<PageProps> =async props => {
 
     return (
       <>
-      <AnimePage data={data}  />
+      <ShowPage data={data}  />
       </>
     )
 }
