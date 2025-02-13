@@ -3,7 +3,7 @@
 import { QueryPorps } from "@/app/(admin)/types";
 import { db } from "@/drizzle";
 import { genre, show, showToGenre } from "@/drizzle/db/schema";
-import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike, inArray } from "drizzle-orm";
+import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike, inArray, gte, lte } from "drizzle-orm";
 
 
 export const getShows = async (query : QueryPorps) => {
@@ -161,17 +161,22 @@ export const getRelations =async (id:string) => {
 }
 
 export const getBestOfYear = async () => {
-    const shows = await db.query.show.findMany({
-        columns : {
-            id : true,
-            title :true,
-            image:true,
-            video:true,
-            airing :true
-        } ,
-        orderBy : (_field,{desc}) => [desc(_field.airing) , desc(_field.rating)]
-    })
-    return shows;
+    const startOf2024 = '2024-1-1';
+    const endOf2024 = '2024-12-31';
+    const bestShows = await db
+    .select()
+    .from(show)
+    .where(
+      and(
+        gte(show.airing, startOf2024),
+        lte(show.airing, endOf2024)
+      )
+    )
+    .orderBy(
+      desc(show.rating),
+      desc(show.airing)
+    )
+    return bestShows;
 }
 
 export const getSearch = async (text :string) => {
