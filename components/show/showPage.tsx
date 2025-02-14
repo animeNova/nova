@@ -142,11 +142,11 @@ const ShowPage : React.FC<ShowPageProps> = ({
                     <Details name='studio' value={data.studio.title} />
                     <Details name='Language' value={data.lang.title} />
                     <div className='flex gap-5'>
-                    <p className='text-white/70 text-xl'>genres</p>
+                    <p className='text-foreground/70 text-xl'>genres</p>
                     <div className='flex gap-2'>
                     {data.showGenres.map((genre) => (
                         <Link href={`/genre/${genre.genre.id}`} key={genre.genre.id}>
-                        <p className='text-white text-xl'>{genre.genre.title}</p>
+                        <p className='text-foreground text-xl hover:underline decoration-primary'>{genre.genre.title}</p>
                         </Link>
                     ))}
                     </div>
