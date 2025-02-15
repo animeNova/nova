@@ -131,7 +131,7 @@ export const getRecommendation =async (id:string) => {
         video : show.video ,
         similarity })
     .from(show)
-    .where(and(gt(similarity, 0.5),ne(show.id,id)))
+    .where(and(gt(similarity, 0.45),ne(show.id,id)))
     .orderBy((t) => desc(t.similarity))
     .limit(10);
     return similarShows;
