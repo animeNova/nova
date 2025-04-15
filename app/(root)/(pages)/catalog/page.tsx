@@ -9,6 +9,7 @@ import { useGetShows } from '@/hooks/useGetShows'
 import CardSkeleton from '@/components/cardSkeleton/CardSkeleton';
 import useFilterValues from '@/hooks/useFilterValues';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 
 
 
@@ -27,7 +28,7 @@ const page = () => {
   })
   useEffect(() => {
     refetch()  
-  },[page,order,pageNum])
+  },[page,order,pageNum,genres,season])
 
   const createQueryString = useCallback(
     (name: string, value: number) => {
@@ -45,7 +46,7 @@ const page = () => {
         <h1 className='text-3xl font-semibold uppercase'>Catalog</h1>
         <div className='flex justify-center items-center gap-2'>
         <OrderbyFilter />
-        {/* <SidebarFilter /> */}
+        <SidebarFilter />
         </div>
    
      </div>
@@ -61,14 +62,29 @@ const page = () => {
     </div>
     )}
 
-    {
-      data?.hasNextPage && (
-      <div>
-        <Button onClick={() => router.push(pathname + '?' + createQueryString('page',data.currentpage + 1)) } className='w-full text-lg' variant={'secondary'}>Show More</Button>
-      </div>
-      ) 
-    }
-   
+        <Pagination className="mt-8">
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            onClick={() => router.push(pathname + '?' + createQueryString('page',data?.currentpage! - 1)) }
+            className={data?.currentpage! <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-muted"}
+            aria-disabled={data?.currentpage! <= 1}
+          />
+        </PaginationItem>
+        <PaginationItem>
+          <span className="flex h-9 items-center justify-center px-4 text-sm">
+            Page {data?.currentpage} of {data?.totalPages}
+          </span>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext
+              onClick={() => router.push(pathname + '?' + createQueryString('page',data?.currentpage! + 1)) }
+            className={data?.currentpage! >= data?.totalPages!  ? "pointer-events-none opacity-50" : "cursor-pointer hover:bg-muted"}
+            aria-disabled={data?.currentpage! >= data?.totalPages!}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
     </div>
     </Wrapper>
   )

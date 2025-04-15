@@ -24,7 +24,7 @@ const CharacterCard : React.FC<CharacterCardProps> = ({id,image,name,castImage})
    <AnimatePresence  initial={false} mode="wait">
       {
         isHovered ? (
-          <MotionImage src={castImage!} width={1000} height={1000}  alt='' className='w-[180px] h-[260px] md:w-[220px] md:h-[300px]  object-fill rounded-md'
+          <MotionImage src={castImage!} width={1000} height={1000}  alt='' className='w-[180px] h-[260px] md:w-[220px] md:h-[300px]  object-cover rounded-md'
           key={'cast'}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -33,7 +33,7 @@ const CharacterCard : React.FC<CharacterCardProps> = ({id,image,name,castImage})
           />
 
         ): (
-          <MotionImage src={image!} width={1000} height={1000}  alt='' className='w-[180px] h-[260px] md:w-[220px] md:h-[300px]  object-fill rounded-md'
+          <MotionImage src={image!} width={1000} height={1000}  alt='' className='w-[180px] h-[260px] md:w-[300px] md:h-[300px]  object-cover rounded-md'
           key={'character'}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -50,7 +50,6 @@ const CharacterCard : React.FC<CharacterCardProps> = ({id,image,name,castImage})
     <div className='absolute bottom-4 left-4 '>
       <Link href={`/chracter/${id}`}>
       <h1 className={cn( 'text-lg font-normal transition text-white/75 hover:text-white')}>{name}</h1>
-
       </Link>
     </div>
     </div>

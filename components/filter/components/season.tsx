@@ -25,12 +25,14 @@ const SeasonFilter = () => {
 
     const [isOpen, setIsOpen] =useState(true)
     const {season,setSeason,reset} = useSeasonStore()
-    const handleSeasonChange = (season: 'spring' | 'summer' | 'fall' | 'winter') => {
-      setSeason(season)
-    }
-    const resetButton = () => {
-      reset()
-      setIsOpen(false)
+    const handleSeasonChange = (selectedSeason: 'spring' | 'summer' | 'fall' | 'winter') => {
+      // Toggle season if the same one is selected again
+      if (season === selectedSeason) {
+        // Reset to null/undefined when clicking the same season
+        setSeason('');
+      } else {
+        setSeason(selectedSeason);
+      }
     }
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>

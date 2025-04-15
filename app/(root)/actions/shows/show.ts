@@ -6,40 +6,87 @@ import { genre, show, showToGenre } from "@/drizzle/db/schema";
 import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike, inArray, gte, lte } from "drizzle-orm";
 
 
-export const getShows = async (query : QueryPorps) => {
-    const {limit= 12,orderBy ='asc',page =1,season,genres} = query;
- 
+export const getShows = async (query: QueryPorps) => {
+    const { limit = 12, orderBy = 'asc', page = 1, season, genres } = query;
     const offset = (page - 1) * limit;
-    const totalshowsResult  = await db.select({count: count() }).from(show);
-    const result = await db.select({
-        id : show.id ,
-        title : show.title ,
-        airing : show.airing ,
-        image : show.image ,
-        video : show.video
-    }).from(show).orderBy(orderBy == 'asc' ? asc(show.created_at) : desc(show.created_at))
-    .where(and(
-        season ? eq(show.season,season) : undefined ,    ))
-    .offset(offset).limit(limit)
-    const totalshows = totalshowsResult[0].count;
 
-
-    // Calculate if there's a next page
-    const hasNextPage = page * limit < totalshows;
-    const uniqueShows = Object.values(
-        result.reduce((acc, show) => {
-          acc[show.id] = show;
-          return acc;
-        }, {} as Record<string, typeof result[0]>)
-      );
-    return {
-        totalShows : totalshows ,
-        currentpage : Number(page) ,
-        hasNextPage,
-        result : uniqueShows,
-        totalPages: Math.ceil(totalshows / limit),
+    // Build the where conditions
+    const whereConditions = [];
+    
+    if (season) {
+        whereConditions.push(eq(show.season, season));
     }
-}
+    
+    // Handle genre filtering with a more efficient approach
+    let showsQuery;
+    let countQuery;
+    
+    if (genres && genres.length > 0) {
+        // Get show IDs that match all the requested genres
+        const showIdsWithGenres = await db
+            .select({ id: show.id })
+            .from(show)
+            .innerJoin(showToGenre, eq(show.id, showToGenre.showId))
+            .where(inArray(showToGenre.genreId, genres))
+            .groupBy(show.id);
+            
+        const matchingIds = showIdsWithGenres.map(item => item.id);
+        
+        if (matchingIds.length > 0) {
+            whereConditions.push(inArray(show.id, matchingIds));
+        } else {
+            // No shows match the genres, return empty result
+            return {
+                totalShows: 0,
+                currentpage: Number(page),
+                hasNextPage: false,
+                result: [],
+                totalPages: 0,
+            };
+        }
+    }
+    
+    // Build and execute the main query with all conditions
+    showsQuery = db
+        .select({
+            id: show.id,
+            title: show.title,
+            airing: show.airing,
+            image: show.image,
+            video: show.video
+        })
+        .from(show);
+        
+    if (whereConditions.length > 0) {
+        showsQuery = showsQuery.where(and(...whereConditions));
+    }
+    
+    // Get total count for pagination
+    countQuery = db.select({ count: count() }).from(show);
+    if (whereConditions.length > 0) {
+        countQuery = countQuery.where(and(...whereConditions));
+    }
+    
+    // Execute both queries
+    const [result, totalshowsResult] = await Promise.all([
+        showsQuery
+            .orderBy(orderBy === 'asc' ? asc(show.airing) : desc(show.airing))
+            .offset(offset)
+            .limit(limit),
+        countQuery
+    ]);
+    
+    const totalshows = totalshowsResult[0].count;
+    const hasNextPage = page * limit < totalshows;
+    
+    return {
+        totalShows: totalshows,
+        currentpage: Number(page),
+        hasNextPage,
+        result,
+        totalPages: Math.ceil(totalshows / limit),
+    };
+};
 
 export const getShow = async (id : string) => {
     const result = await db.query.show.findFirst({
