@@ -244,7 +244,8 @@ export const getPopular = async () => {
             video:true,
             airing :true
         } ,
-        orderBy : (_field,{desc}) => [desc(_field.rating)]
+        orderBy : (_field,{desc}) => [desc(_field.rating)],
+        limit : 6
     })
     return shows;
 }
