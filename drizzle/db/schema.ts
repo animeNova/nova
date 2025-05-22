@@ -7,15 +7,15 @@ export const user = pgTable("user", {
   .primaryKey(),
   name: text('name').notNull(),
   password: text('password'),
-email: text('email').notNull().unique(),
-emailVerified: boolean('emailVerified').notNull(),
-image: text('image'),
-role: text('role').default('user'),
-banned: boolean('banned').default(false),
-banReason: text('banReason'),
-banExpires: integer('banExpires'),
-createdAt: timestamp('createdAt').defaultNow().notNull(),
-updatedAt: timestamp('updatedAt').defaultNow().notNull()
+  email: text('email').notNull().unique(),
+  emailVerified: boolean('emailVerified').notNull(),
+  image: text('image'),
+  role: text('role').default('user'),
+  banned: boolean('banned').default(false),
+  banReason: text('banReason'),
+  banExpires: integer('banExpires'),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull()
 });
 
 export const session = pgTable("session", {

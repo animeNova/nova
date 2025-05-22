@@ -2,7 +2,7 @@
 
 import { db } from "@/drizzle";
 import { QueryPorps } from "../../types";
-import { count ,asc,desc, sql } from 'drizzle-orm';
+import { count ,asc,desc, sql, ne } from 'drizzle-orm';
 import { user } from "@/drizzle/db/schema";
 
 export const getUsers = async (props : QueryPorps) => {
@@ -15,7 +15,7 @@ export const getUsers = async (props : QueryPorps) => {
         image : user.image,
         email:user.email,
         role : user.role
-    }).from(user).orderBy(orderBy == 'asc' ? asc(user.createdAt) : desc(user.createdAt)).offset(offset).limit(limit)
+    }).from(user).where(ne(user.role,'admin')).orderBy(orderBy == 'asc' ? asc(user.createdAt) : desc(user.createdAt)).offset(offset).limit(limit)
     const totalUsers = totalUsersResult[0].count;
 
     // Calculate if there's a next page

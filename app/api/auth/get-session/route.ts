@@ -8,7 +8,7 @@ export async function GET(res : NextResponse , req : NextRequest) {
     })
     if(!session){
         return NextResponse.json({
-            error :"Not Authurized!"
+            error :"Not Authorized!"
         })
     }
     

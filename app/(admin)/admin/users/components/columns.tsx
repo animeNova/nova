@@ -2,6 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-action"
+import { useSession } from "@/app/lib/auth/client";
+import { UserRoleDropdown } from "@/components/ui/user-role-dropdown";
+import UserAvatar from "@/components/ui/user-avatar";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -26,11 +29,11 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "image",
     header: "Image", 
-    cell : ({row}) => <img src={row.original.image!} className="w-6 h-6 rounded-full" />
+    cell : ({row}) => <UserAvatar url={row.original.image!} className="w-6 h-6 rounded-full" />
   },
   {
     accessorKey: "role",
-    header: "Role"  
+    header: "Role" 
   },
   {
     id : "actions", 

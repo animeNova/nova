@@ -20,7 +20,7 @@ export const auth = betterAuth({
     } ,
     plugins :[
         admin({
-            defaultRole :false
+            defaultRole :false ,  
         }) ,
     ] ,
     trustedOrigins: [
