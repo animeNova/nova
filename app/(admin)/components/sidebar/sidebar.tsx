@@ -1,3 +1,4 @@
+'use client';
 import { Calendar, Home, Inbox, Search, Settings,User,Languages,Tags,SquareUser,PersonStanding ,Star,Clapperboard,Library,SquareScissors,Pen, ChartNoAxesCombined} from "lucide-react"
 
 import {
@@ -11,6 +12,9 @@ import {
   SidebarMenuItem,
   SidebarFooter
 } from "@/components/ui/sidebar"
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 // Menu items.
 const items = [
@@ -62,6 +66,7 @@ const items = [
 ]
 
 export function AppSidebar() {
+  const path = usePathname()
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
@@ -69,16 +74,19 @@ export function AppSidebar() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+              {items.map((item) => {
+               const isActive = path.endsWith(item.url);
+                return (
+                  <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url} className={cn(isActive ? 'bg-secondary rounded-md' : '')}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+                )
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
           

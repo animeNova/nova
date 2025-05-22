@@ -8,7 +8,7 @@ import Image from "next/image"
 // You can use a Zod schema here if you want.
 export type Staff = {
     name : string ,
-    age : number ,
+    birth : string | null,
     job : string ,
     image : string|null ,
     id :string
@@ -25,8 +25,8 @@ export const columns: ColumnDef<Staff>[] = [
     header: "Job",
   },
   {
-    accessorKey: "age",
-    header: "Age",
+    accessorKey: "birth",
+    header: "Birth",
   },
   {
     accessorKey: "image",

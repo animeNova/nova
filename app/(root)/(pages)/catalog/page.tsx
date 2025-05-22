@@ -20,7 +20,7 @@ const page = () => {
   const pathname = usePathname()
   const {season,genres,order} = useFilterValues()
   const {data,isLoading,refetch,isRefetching} = useGetShows({
-    limit : 10 ,
+    limit : 8 ,
     page :Number(pageNum) ,
     orderBy : order,
     season : season ,

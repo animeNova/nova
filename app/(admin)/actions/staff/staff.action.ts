@@ -2,7 +2,7 @@
 
 import { db } from "@/drizzle";
 import { QueryPorps } from "../../types";
-import { asc, count, desc, eq, like } from "drizzle-orm";
+import { asc, count, desc, eq, like ,ilike} from "drizzle-orm";
 import { cast } from "@/drizzle/db/schema";
 import { z } from "zod";
 import { staffSchema } from "../../types/zod.types";
@@ -50,7 +50,7 @@ export const searchStaff = async (name : string) => {
     const result = await db.select({
         value : cast.id ,
         label : cast.name
-    }).from(cast).where(like(cast.name,`%${name}%`));
+    }).from(cast).where(ilike(cast.name,`%${name}%`));
     return result;
 }
 
@@ -98,7 +98,7 @@ export const updateStaff = async (id : string , _data : z.infer<typeof staffSche
     }).where(eq(cast.id,id))
     revalidatePath('/admin/staff')
     return {
-     success :"Staff Updated Successfuly!"
+     success :"Staff Updated Successfully!"
     }
 }
 
@@ -112,6 +112,6 @@ export const deleteStaff = async (id : string) => {
     await db.delete(cast).where(eq(cast.id,exist.id));
     revalidatePath('/admin/languages')
     return {
-        success :"Staff Deleted Successfuly!"
+        success :"Staff Deleted Successfully!"
        }
 }

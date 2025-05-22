@@ -102,7 +102,7 @@ export function MultiSelectV1({
                 {option?.label}
                 <button
                   onClick={(e) => removeValue(e, value)}
-                  className="hover:bg-blue-200 rounded-full p-0.5"
+                  className="hover:bg-accent rounded-full p-0.5"
                 >
                   <X size={14} />
                 </button>
@@ -141,7 +141,7 @@ export function MultiSelectV1({
             {options?.map((option) => (
               <div
                 key={option.value}
-                className={`px-3 py-2 cursor-pointer flex items-center justify-between hover:bg-gray-50 ${
+                className={`px-3 py-2 cursor-pointer flex items-center justify-between hover:bg-accent ${
                   selectedValues.includes(option.value) ? 'bg-primary rounded-md' : ''
                 }`}
                 onClick={() => toggleOption(option.value)}
