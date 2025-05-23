@@ -17,13 +17,13 @@ const Best = () => {
   return (
     <>
           <div className='space-y-3'>
-        <Header title='Best of 2024'/>
+        <Header title='Most Recent'/>
         <Carousel>
         <CarouselContent className='py-4 px-4' >
             {
                 data?.map((show) => (
                     <CarouselItem className='basis-1/2 md:basis-[19%]' key={show.id}>
-                    <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing}  key={show.id}/>
+                    <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing}  key={show.id} type={show.type} />
                     </CarouselItem>
                 ))
             }

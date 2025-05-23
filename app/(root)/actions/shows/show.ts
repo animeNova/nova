@@ -215,19 +215,18 @@ export const getRelations =async (id:string) => {
 }
 
 export const getBestOfYear = async () => {
-    const startOf2024 = '2024-1-1';
-    const endOf2024 = '2024-12-31';
+    const startOf2025 = '2024-1-1';
+    const endOf2025 = '2025-12-31';
     const bestShows = await db
     .select()
     .from(show)
     .where(
       and(
-        gte(show.airing, startOf2024),
-        lte(show.airing, endOf2024)
+        gte(show.airing, startOf2025),
+        lte(show.airing, endOf2025)
       )
     )
     .orderBy(
-      desc(show.rating),
       desc(show.airing)
     )
     return bestShows;
@@ -249,7 +248,8 @@ export const getPopular = async () => {
             title :true,
             image:true,
             video:true,
-            airing :true
+            airing :true,
+            type :true
         } ,
         orderBy : (_field,{desc}) => [desc(_field.rating)],
         limit : 6

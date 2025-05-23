@@ -13,6 +13,7 @@ type RecommendedShow = {
   image: string | null;
   video: string | null;
   airing: Date | string; // Changed from boolean to Date or string since it's a date in the schema
+  type : 'TV' | 'MOVIE'
 };
 
 /**
@@ -46,6 +47,7 @@ export async function getEnhancedRecommendations(): Promise<RecommendedShow[] | 
       image: show.image,
       video: show.video,
       airing: show.airing,
+      type : show.type
     };
 
     // If user has sufficient interaction history, recommend based on that
@@ -83,7 +85,8 @@ export async function getEnhancedRecommendations(): Promise<RecommendedShow[] | 
         title: true,
         image: true,
         video: true,
-        airing: true
+        airing: true,
+        type : true,
       },
       with: {
         showGenres: {
