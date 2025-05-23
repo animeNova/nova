@@ -7,7 +7,7 @@ import { asc, cosineDistance, count, desc, eq, like, sql,gt, and,ne, or, ilike, 
 
 
 export const getShows = async (query: QueryPorps) => {
-    const { limit = 12, orderBy = 'asc', page = 1, season, genres } = query;
+    const { limit = 12, orderBy = 'asc', page = 1, season, genres , type } = query;
     const offset = (page - 1) * limit;
 
     // Build the where conditions
@@ -15,6 +15,11 @@ export const getShows = async (query: QueryPorps) => {
     
     if (season) {
         whereConditions.push(eq(show.season, season));
+    }
+    
+    // Add type filter condition
+    if (type) {
+        whereConditions.push(eq(show.type, type));
     }
     
     // Handle genre filtering with a more efficient approach
@@ -53,7 +58,8 @@ export const getShows = async (query: QueryPorps) => {
             title: show.title,
             airing: show.airing,
             image: show.image,
-            video: show.video
+            video: show.video,
+            type: show.type,
         })
         .from(show);
         
@@ -200,7 +206,8 @@ export const getRelations =async (id:string) => {
             title :true,
             image:true,
             video:true,
-            airing :true
+            airing :true,
+            type :true
         }
     })
 

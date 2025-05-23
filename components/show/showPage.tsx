@@ -139,7 +139,7 @@ const ShowPage : React.FC<ShowPageProps> = ({
                     <Details name='aired' value={data.airing} />
                     <Details name='relativeTitle' value={data.relativeTitle}/>
                     <Details name='creator' link={`/creator/${data.creator.id}`} value={data.creator.name} />
-                    <Details name='studio' value={data.studio.title} />
+                    <Details name='studio' link={`/studio/${data.studio.id}`}  value={data.studio.title} />
                     <Details name='Language' value={data.lang.title} />
                     <div className='flex gap-5'>
                     <p className='text-foreground/70 text-xl'>genres</p>

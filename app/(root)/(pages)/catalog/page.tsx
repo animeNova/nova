@@ -18,17 +18,18 @@ const page = () => {
   const pageNum = searchParams.get('page') || 1;
   const router = useRouter()
   const pathname = usePathname()
-  const {season,genres,order} = useFilterValues()
+  const {season,genres,order,type} = useFilterValues()
   const {data,isLoading,refetch,isRefetching} = useGetShows({
     limit : 8 ,
     page :Number(pageNum) ,
     orderBy : order,
     season : season ,
-    genres : genres
+    genres : genres,
+    type : type
   })
   useEffect(() => {
     refetch()  
-  },[page,order,pageNum,genres,season])
+  },[page,order,pageNum,genres,season,type])
 
   const createQueryString = useCallback(
     (name: string, value: number) => {
@@ -56,7 +57,7 @@ const page = () => {
       <div className='flex-wrap flex justify-center items-center gap-4 md:gap-14'>
       {
         data?.result.map((show) => (
-          <AnimeCard id={show.id} image={show.image} video={show.video} title={show.title} year={show.airing} key={show.id}  />
+          <AnimeCard id={show.id} image={show.image} video={show.video} title={show.title} year={show.airing} key={show.id} type={show.type}  />
         ))
       }
     </div>

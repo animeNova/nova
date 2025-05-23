@@ -15,6 +15,7 @@ import {  Filter } from "lucide-react"
 import GenreFilter from "./components/genres"
 
 import SeasonFilter from "./components/season"
+import TypeFilter from "./components/type-filter"
 
 
 
@@ -37,6 +38,7 @@ export default function SidebarFilter() {
         <div className="p-4 space-y-4">
           <GenreFilter />
           <SeasonFilter />
+          <TypeFilter />
           </div>
         </ScrollArea>
       </SheetContent>

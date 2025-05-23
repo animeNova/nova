@@ -9,9 +9,6 @@ const Relations =() => {
     const params = useParams<{id:string}>()
     const {data,isLoading} = useGetRelations(params.id)
 
-    if(!data?.length){
-        return <p className='px-4 text-foreground/80'>No Relations Found!</p>
-    }
 
     
   return (
@@ -23,7 +20,7 @@ const Relations =() => {
       }
       {
         data?.map((show) => (
-            <AnimeCard id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} />
+            <AnimeCard key={show.id} id={show.id} image={show.image} title={show.title} video={show.video} year={show.airing} type={show.type} />
         ))
       }
     </div>

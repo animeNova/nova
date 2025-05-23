@@ -11,10 +11,11 @@ interface AnimeCardProps {
   image : string;
   video :string;
   year : string;  
+  type : string;
 }
 
 
-const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
+const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year,type}) => {
   const [mounted,SetMounted] = useState(false);
   const [isHovered, setIsHovered] = useState(false)
 
@@ -69,14 +70,18 @@ const AnimeCard : React.FC<AnimeCardProps> = ({id,image,title,video,year}) => {
       <h1 className={cn( 'text-lg font-normal transition text-white/75  hover:text-white')}>{title}</h1>
       </Link>
       
-      <p className={cn('text-sm text-white/70  ') }>
+      <div className={cn('text-sm text-white/70 flex space-x-1') }>
     <Link href={'#'} className='transition hover:text-white'>
     {
       year?.slice(0,4)
     }
+    </Link> 
+    <Link href={'#'} className='text-white/70 hover:text-white'>
+    {type}
     </Link>
+    
          
-    </p>
+       </div>
     </div>
     </div>
   //  `/year/${year?.slice(0,4)}`

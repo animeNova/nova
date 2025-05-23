@@ -62,7 +62,7 @@ const HeroSlide : React.FC<HeroSlideProps> = ({isActive = false,description,id,t
       <p className='max-w-md line-clamp-3 text-white/80'>{description}</p>
       {/* Buttons */}
       <div className='flex md:justify-start justify-center items-center gap-2'>
-        <Link href={`/anime/${id}`}>
+        <Link href={`/show/${id}`}>
         <Button className='text-lg md:text-xl p-6'>Learn More</Button>
 
         </Link>

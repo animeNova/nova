@@ -4,4 +4,5 @@ export interface QueryPorps {
     orderBy ?:'asc' |'desc'; 
     season ?: string;
     genres ?: string[]
+    type ?: 'TV' | 'MOVIE' | ''
 }

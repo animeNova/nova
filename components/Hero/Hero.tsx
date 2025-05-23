@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/carousel"
 import HeroSlide from './HeroSlide'
 import { Button } from '../ui/button'
-import { useGetPinned } from '@/hooks/useGetPinned'
 import HeroLoading from './loading'
 import { useGetHeroRec } from '@/hooks/useGetHeroRec'
 const SLIDE_COUNT = 2
